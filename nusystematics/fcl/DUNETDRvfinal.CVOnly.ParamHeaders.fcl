@@ -1,0 +1,79 @@
+BEGIN_PROLOG
+generated_systematic_provider_configuration: {
+    BeRPAWeight_DUNE_TDR_FakeData: {
+        BeRPA_A: {
+            centralParamValue: 0
+            isCorrection: true
+            isSplineable: false
+            paramVariations: [
+                0
+            ]
+            prettyName: BeRPA_A
+            systParamId: 58
+        }
+        instance_name: DUNE_TDR_FakeData
+        parameter_headers: [
+            BeRPA_A,
+        ]
+        tool_options: {
+            ApplyCV: true
+            fill_valid_tree: false
+            ignore_parameter_dependence: true
+        }
+        tool_type: BeRPAWeight
+    }
+    GENIEReWeight_DUNE_TDR_Splines: {
+        MaCCRES: {
+            centralParamValue: -0.36
+            isCorrection: true
+            isSplineable: false
+            paramVariations: [
+                -0.36
+            ]
+            prettyName: MaCCRES
+            systParamId: 4
+        }
+        instance_name: DUNE_TDR_Splines
+        parameter_headers: [
+            MaCCRES,
+        ]
+        tool_options: {
+            CCRESIsShapeOnly: false
+            UseFullHERG: true
+            fill_valid_tree: false
+            ignore_parameter_dependence: true
+        }
+        tool_type: GENIEReWeight
+    }
+    NOvAStyleNonResPionNorm_DUNE_TDR_FakeData: {
+        NR_nu_np_CC_1Pi: {
+            centralParamValue: -1.14
+            isCorrection: true
+            isSplineable: false
+            paramVariations: [
+                -1.14
+            ]
+            prettyName: NR_nu_np_CC_1Pi
+            systParamId: 39
+        }
+        instance_name: DUNE_TDR_FakeData
+        parameter_headers: [
+            NR_nu_np_CC_1Pi
+        ]
+        tool_options: {
+            HighWResponse: 0.05
+            OneSigmaResponse: 0.5
+            WBegin: 0
+            WEnd: 5
+            WTransition: 3
+            fill_valid_tree: false
+        }
+        tool_type: NOvAStyleNonResPionNorm
+    }
+    syst_providers: [
+        BeRPAWeight_DUNE_TDR_FakeData,
+        GENIEReWeight_DUNE_TDR_Splines,
+        NOvAStyleNonResPionNorm_DUNE_TDR_FakeData
+    ]
+}
+END_PROLOG
