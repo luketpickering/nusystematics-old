@@ -8,7 +8,7 @@
 #include "Framework/EventGen/EventRecord.h"
 #include "Framework/GHEP/GHepUtils.h"
 #include "Framework/Messenger/Messenger.h"
-#include "Ntuple/NtpMCEventRecord.h"
+#include "Framework/Ntuple/NtpMCEventRecord.h"
 
 // Included by fhiclcpp-simple will not be available in art-ful
 #include "string_parsers/from_string.hxx"

@@ -23,8 +23,7 @@ class MKSinglePiTemplate : public nusyst::IGENIESystProvider_tool {
     bool ZeroIsValid;
   };
 
-  std::map<genie::SppChannel_t, TemplateHelper>
-      ChannelParameterMapping;
+  std::map<genie::SppChannel_t, TemplateHelper> ChannelParameterMapping;
 
 public:
   explicit MKSinglePiTemplate(fhicl::ParameterSet const &);

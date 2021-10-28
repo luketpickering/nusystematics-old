@@ -191,20 +191,20 @@ ConfigureQEWeightEngine(SystMetaData const &QEmd,
       UseFullHERG, param_map);
 
   // Add AxFFCCQEShape
-  AddIndependentParameters(QEmd, {kXSecTwkDial_AxFFCCQEshape}, "xsec_ccqe_axFF",
-                           []() { return new GReWeightNuXSecCCQEaxial(); },
-                           UseFullHERG, param_map);
+  AddIndependentParameters(
+      QEmd, {kXSecTwkDial_AxFFCCQEshape}, "xsec_ccqe_axFF",
+      []() { return new GReWeightNuXSecCCQEaxial(); }, UseFullHERG, param_map);
 
   // Add ZNormCCQE
-  AddIndependentParameters(QEmd, {kXSecTwkDial_ZNormCCQE}, "xsec_ccqe_axFF",
-                           []() {
-                             GReWeightNuXSecCCQE *rwccqe =
-                                 new GReWeightNuXSecCCQE();
+  AddIndependentParameters(
+      QEmd, {kXSecTwkDial_ZNormCCQE}, "xsec_ccqe_axFF",
+      []() {
+        GReWeightNuXSecCCQE *rwccqe = new GReWeightNuXSecCCQE();
 
-                             rwccqe->SetMode(GReWeightNuXSecCCQE::kModeZExp);
-                             return rwccqe;
-                           },
-                           UseFullHERG, param_map);
+        rwccqe->SetMode(GReWeightNuXSecCCQE::kModeZExp);
+        return rwccqe;
+      },
+      UseFullHERG, param_map);
 
   // Add ZExpansion dials
   AddResponseAndDependentDials(
@@ -349,12 +349,12 @@ ConfigureRESWeightEngine(SystMetaData const &RESmd,
       "xsec_NonResBkg", []() { return new GReWeightNonResonanceBkg(); },
       UseFullHERG, param_map);
 
-  AddIndependentParameters(RESmd,
-                           {{kRDcyTwkDial_BR1gamma, kRDcyTwkDial_BR1eta,
-                             kRDcyTwkDial_Theta_Delta2Npi}},
-                           "xsec_ResDecay",
-                           []() { return new GReWeightResonanceDecay(); },
-                           UseFullHERG, param_map);
+  AddIndependentParameters(
+      RESmd,
+      {{kRDcyTwkDial_BR1gamma, kRDcyTwkDial_BR1eta,
+        kRDcyTwkDial_Theta_Delta2Npi}},
+      "xsec_ResDecay", []() { return new GReWeightResonanceDecay(); },
+      UseFullHERG, param_map);
 
   return param_map;
 }
@@ -403,9 +403,9 @@ ConfigureDISWeightEngine(SystMetaData const &DISmd,
       {kHadrAGKYTwkDial_xF1pi, kHadrAGKYTwkDial_pT1pi}, "hadronization",
       []() { return new GReWeightAGKY; }, UseFullHERG, param_map);
 
-  AddIndependentParameters(DISmd, {kHadrNuclTwkDial_FormZone}, "form_zone",
-                           []() { return new GReWeightFZone; }, UseFullHERG,
-                           param_map);
+  AddIndependentParameters(
+      DISmd, {kHadrNuclTwkDial_FormZone}, "form_zone",
+      []() { return new GReWeightFZone; }, UseFullHERG, param_map);
 
   return param_map;
 }
@@ -419,21 +419,14 @@ ConfigureFSIWeightEngine(systtools::SystMetaData const &FSImd,
 
   AddResponseAndDependentDials(
       FSImd, "FSI_pi_VariationResponse",
-      {kINukeTwkDial_MFP_pi, kINukeTwkDial_FrCEx_pi, 
-       // kINukeTwkDial_FrElas_pi,
-       // Pion elastic fate was removed in hA2018 for GENIE v3
-       // -- S. Gardiner, 19 December 2018
-       kINukeTwkDial_FrInel_pi, kINukeTwkDial_FrAbs_pi,
-       kINukeTwkDial_FrPiProd_pi},
+      {kINukeTwkDial_MFP_pi, kINukeTwkDial_FrCEx_pi, kINukeTwkDial_FrInel_pi,
+       kINukeTwkDial_FrAbs_pi, kINukeTwkDial_FrPiProd_pi},
       "INuke_pi", []() { return new GReWeightINuke; }, UseFullHERG, param_map);
 
   AddResponseAndDependentDials(
       FSImd, "FSI_N_VariationResponse",
-      {kINukeTwkDial_MFP_N, kINukeTwkDial_FrCEx_N,
-       // kINukeTwkDial_FrElas_N,
-       // Nucleon elastic fate was removed in hA2018 for GENIE v3
-       // -- S. Gardiner, 19 December 2018
-       kINukeTwkDial_FrInel_N, kINukeTwkDial_FrAbs_N, kINukeTwkDial_FrPiProd_N},
+      {kINukeTwkDial_MFP_N, kINukeTwkDial_FrCEx_N, kINukeTwkDial_FrInel_N,
+       kINukeTwkDial_FrAbs_N, kINukeTwkDial_FrPiProd_N},
       "INuke_N", []() { return new GReWeightINuke; }, UseFullHERG, param_map);
 
   return param_map;

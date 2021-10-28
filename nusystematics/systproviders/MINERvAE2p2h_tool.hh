@@ -38,12 +38,13 @@ private:
 
   bool ignore_parameter_dependence;
 
-  size_t pidx_E2p2hResponse_nu, pidx_E2p2hResponse_nubar, pidx_E2p2hA_nu, pidx_E2p2hB_nu, pidx_E2p2hA_nubar, pidx_E2p2hB_nubar;
+  size_t pidx_E2p2hResponse_nu, pidx_E2p2hResponse_nubar, pidx_E2p2hA_nu,
+      pidx_E2p2hB_nu, pidx_E2p2hA_nubar, pidx_E2p2hB_nubar;
 
   double A_nu_CV, B_nu_CV, A_nubar_CV, B_nubar_CV;
 
-  std::vector<double> A_nu_Variations, B_nu_Variations, A_nubar_Variations, B_nubar_Variations;
-
+  std::vector<double> A_nu_Variations, B_nu_Variations, A_nubar_Variations,
+      B_nubar_Variations;
 
   void InitValidTree();
 

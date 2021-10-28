@@ -23,7 +23,7 @@
 if(GENIE STREQUAL "")
   message(FATAL_ERROR "Variable GENIE is not defined. "
     "The location of a pre-built GENIE install must be defined either as"
-    " $ cmake -DGENIE=/path/to/GENIE or as and environment vairable"
+    " $ cmake -DGENIE=/path/to/GENIE or as and environment variable"
     " $ export GENIE=/path/to/GENIE")
 endif()
 
@@ -53,10 +53,10 @@ message(STATUS "GENIE version : ${GENIE_VERSION}")
 message(STATUS "GENIE libdir  : ${GENIE_LIB_DIR}")
 message(STATUS "GENIE libs    : ${GENIE_LIBS_STRIPED}")
 
-string(REGEX MATCH "ReWeight" WASMATCHED ${GENIE_LIBS_STRIPED})
+string(REGEX MATCH "GRw" WASMATCHED ${GENIE_LIBS_STRIPED})
 if(NOT WASMATCHED)
-  set(GENIE_LIBS_STRIPED "GReWeight ${GENIE_LIBS_STRIPED}")
-  message(STATUS "Force added ReWeight library: ${GENIE_LIBS_STRIPED}")
+  set(GENIE_LIBS_STRIPED "GRwFwk GRwIO GRwClc ${GENIE_LIBS_STRIPED}")
+  message(STATUS "Force added ReWeight libraries: ${GENIE_LIBS_STRIPED}")
 endif()
 
 string(REPLACE " " ";" GENIE_LIBS_LIST "${GENIE_LIBS_STRIPED}")
@@ -90,49 +90,57 @@ CheckAndSetDefaultEnv(LOG4CPP_INC "" PATH "Path to installed LOG4CPP headers. Ov
 CheckAndSetDefaultEnv(PYTHIA6 "" PATH "Path to directory containing Pythia6 library. Overrides environment variable \$PYTHIA6. <>" PYTHIA6)
 
 ################################  LHAPDF  ######################################
-if(LHAPDF_LIB STREQUAL "")
-  message(FATAL_ERROR "Variable LHAPDF_LIB is not defined. The location of a pre-built lhapdf install must be defined either as $ cmake -DLHAPDF_LIB=/path/to/LHAPDF_libraries or as and environment vairable $ export LHAPDF_LIB=/path/to/LHAPDF_libraries")
+if("${LHAPDF_LIB}x" STREQUAL "x")
+  message(FATAL_ERROR "Variable LHAPDF_LIB is not defined. The location of a pre-built lhapdf install must be defined either as $ cmake -DLHAPDF_LIB=/path/to/LHAPDF_libraries or as and environment variable $ export LHAPDF_LIB=/path/to/LHAPDF_libraries")
 endif()
 
-if(LHAPDF_INC STREQUAL "")
-  message(FATAL_ERROR "Variable LHAPDF_INC is not defined. The location of a pre-built lhapdf install must be defined either as $ cmake -DLHAPDF_INC=/path/to/LHAPDF_includes or as and environment vairable $ export LHAPDF_INC=/path/to/LHAPDF_includes")
+if("${LHAPDF_INC}x" STREQUAL "x")
+  message(FATAL_ERROR "Variable LHAPDF_INC is not defined. The location of a pre-built lhapdf install must be defined either as $ cmake -DLHAPDF_INC=/path/to/LHAPDF_includes or as and environment variable $ export LHAPDF_INC=/path/to/LHAPDF_includes")
 endif()
 
-if(LHAPATH STREQUAL "")
+if("${LHAPATH}x" STREQUAL "x")
   message(FATAL_ERROR "Variable LHAPATH is not defined. The location of a the LHAPATH directory must be defined either as $ cmake -DLHAPATH=/path/to/LHAPATH or as and environment variable $ export LHAPATH=/path/to/LHAPATH")
 endif()
 
 ################################  LIBXML  ######################################
-if(LIBXML2_LIB STREQUAL "")
-  message(FATAL_ERROR "Variable LIBXML2_LIB is not defined. The location of a pre-built libxml2 install must be defined either as $ cmake -DLIBXML2_LIB=/path/to/LIBXML2_libraries or as and environment vairable $ export LIBXML2_LIB=/path/to/LIBXML2_libraries")
+if("${LIBXML2_LIB}x" STREQUAL "x")
+  message(FATAL_ERROR "Variable LIBXML2_LIB is not defined. The location of a pre-built libxml2 install must be defined either as $ cmake -DLIBXML2_LIB=/path/to/LIBXML2_libraries or as and environment variable $ export LIBXML2_LIB=/path/to/LIBXML2_libraries")
 endif()
 
-if(LIBXML2_INC STREQUAL "")
-  message(FATAL_ERROR "Variable LIBXML2_INC is not defined. The location of a pre-built libxml2 install must be defined either as $ cmake -DLIBXML2_INC=/path/to/LIBXML2_includes or as and environment vairable $ export LIBXML2_INC=/path/to/LIBXML2_includes")
+if("${LIBXML2_INC}x" STREQUAL "x")
+  message(FATAL_ERROR "Variable LIBXML2_INC is not defined. The location of a pre-built libxml2 install must be defined either as $ cmake -DLIBXML2_INC=/path/to/LIBXML2_includes or as and environment variable $ export LIBXML2_INC=/path/to/LIBXML2_includes")
 endif()
 ###############################  log4cpp  ######################################
-if(LOG4CPP_LIB STREQUAL "")
+if("${LOG4CPP_LIB}x" STREQUAL "x")
   find_program(LOG4CPPCFG log4cpp-config)
   if(NOT LOG4CPPCFG STREQUAL "LOG4CPPCFG-NOTFOUND")
     execute_process (COMMAND ${LOG4CPPCFG}
     --pkglibdir OUTPUT_VARIABLE LOG4CPP_LIB OUTPUT_STRIP_TRAILING_WHITESPACE)
   else()
-    message(FATAL_ERROR "Variable LOG4CPP_LIB is not defined. The location of a pre-built log4cpp install must be defined either as $ cmake -DLOG4CPP_LIB=/path/to/LOG4CPP_libraries or as and environment vairable $ export LOG4CPP_LIB=/path/to/LOG4CPP_libraries")
+    message(FATAL_ERROR "Variable LOG4CPP_LIB is not defined. The location of a pre-built log4cpp install must be defined either as $ cmake -DLOG4CPP_LIB=/path/to/LOG4CPP_libraries or as and environment variable $ export LOG4CPP_LIB=/path/to/LOG4CPP_libraries")
   endif()
 endif()
 
-if(LOG4CPP_INC  STREQUAL "")
+if("${LOG4CPP_INC}x" STREQUAL "x")
   find_program(LOG4CPPCFG log4cpp-config)
   if(NOT LOG4CPPCFG STREQUAL "LOG4CPPCFG-NOTFOUND")
     execute_process (COMMAND ${LOG4CPPCFG}
     --pkgincludedir OUTPUT_VARIABLE LOG4CPP_INC OUTPUT_STRIP_TRAILING_WHITESPACE)
   else()
-    message(FATAL_ERROR "Variable LOG4CPP_INC is not defined. The location of a pre-built log4cpp install must be defined either as $ cmake -DGENIE_LOG4CPP_INC=/path/to/LOG4CPP_includes or as and environment vairable $ export LOG4CPP_INC=/path/to/LOG4CPP_includes")
+    message(FATAL_ERROR "Variable LOG4CPP_INC is not defined. The location of a pre-built log4cpp install must be defined either as $ cmake -DGENIE_LOG4CPP_INC=/path/to/LOG4CPP_includes or as and environment variable $ export LOG4CPP_INC=/path/to/LOG4CPP_includes")
   endif()
 endif()
 
-if(PYTHIA6 STREQUAL "")
-  message(FATAL_ERROR "Variable PYTHIA6 is not defined. The location of a pre-built PYTHIA6 prefix must be defined either as $ cmake -DPYTHIA6=/path/to/PYTHIA6 or as and environment vairable $ export PYTHIA6=/path/to/PYTHIA6")
+if("${PYTHIA6}x" STREQUAL "x")
+  message(FATAL_ERROR "Variable PYTHIA6 is not defined. The location of a pre-built PYTHIA6 prefix must be defined either as $ cmake -DPYTHIA6=/path/to/PYTHIA6 or as and environment variable $ export PYTHIA6=/path/to/PYTHIA6")
+endif()
+################################  gsl  ######################################
+if("${GSL_LIB}x" STREQUAL "x")
+  message(FATAL_ERROR "Variable GSL_LIB is not defined. The location of a pre-built GSL install must be defined either as $ cmake -DGSL_LIB=/path/to/GSL_libraries or as and environment variable $ export GSL_LIB=/path/to/GSL_libraries")
+endif()
+
+if("${GSL_INC}x" STREQUAL "x")
+  message(FATAL_ERROR "Variable GSL_INC is not defined. The location of a pre-built GSL install must be defined either as $ cmake -DGSL_INC=/path/to/GSL_includes or as and environment variable $ export GSL_INC=/path/to/GSL_includes")
 endif()
 ################################################################################
 
@@ -143,17 +151,19 @@ LIST(APPEND GENIE_INCLUDE_DIRS
   ${GENIE_INCLUDES_DIR}
   ${LHAPDF_INC}
   ${LIBXML2_INC}
-  ${LOG4CPP_INC})
+  ${LOG4CPP_INC}
+  ${GSL_INC})
 
 LIST(APPEND GENIE_LINK_DIRS
   ${GENIE_LIB_DIR}
   ${PYTHIA6}
   ${LHAPDF_LIB}
   ${LIBXML2_LIB}
-  ${LOG4CPP_LIB})
+  ${LOG4CPP_LIB}
+  ${GSL_LIB})
 
 LIST(APPEND GENIE_LIBS ${GENIE_LIBS_LIST})
-LIST(APPEND GENIE_LIBS LHAPDF xml2 log4cpp)
+LIST(APPEND GENIE_LIBS gsl LHAPDF xml2 log4cpp)
 
 if(NOT GENIE_LINK_DIRS STREQUAL "")
   string(REPLACE ";" " -L" STR_GENIE_LINK_DIRS "-L${GENIE_LINK_DIRS}")

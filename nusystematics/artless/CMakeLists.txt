@@ -111,7 +111,8 @@ include_directories(${CMAKE_INSTALL_PREFIX}/include)
 SET(UTIL_HDRFILES
   ${CMAKE_SOURCE_DIR}/nusystematics/utility/enumclass2int.hh
   ${CMAKE_SOURCE_DIR}/nusystematics/utility/exceptions.hh
-  ${CMAKE_SOURCE_DIR}/nusystematics/utility/GENIEUtils.hh)
+  ${CMAKE_SOURCE_DIR}/nusystematics/utility/GENIEUtils.hh
+  ${CMAKE_SOURCE_DIR}/nusystematics/utility/simbUtility.hh)
 
 INSTALL(FILES ${UTIL_HDRFILES} DESTINATION include/nusystematics/utility)
 
@@ -122,7 +123,12 @@ SET(RC_HDRFILES
   ${CMAKE_SOURCE_DIR}/nusystematics/responsecalculators/MKSinglePiTemplate_ReWeight.hh
   ${CMAKE_SOURCE_DIR}/nusystematics/responsecalculators/MINERvA2p2hq0q3.hh
   ${CMAKE_SOURCE_DIR}/nusystematics/responsecalculators/MINERvAq0q3Weighting_data.hh
-  ${CMAKE_SOURCE_DIR}/nusystematics/responsecalculators/MINERvARPAq0q3_ReWeight.hh)
+  ${CMAKE_SOURCE_DIR}/nusystematics/responsecalculators/MINERvARPAq0q3_ReWeight.hh
+  ${CMAKE_SOURCE_DIR}/nusystematics/responsecalculators/EnuBinnedTemplateResponseCalculator.hh
+  ${CMAKE_SOURCE_DIR}/nusystematics/responsecalculators/FSILikeEAvailSmearing.hh
+  ${CMAKE_SOURCE_DIR}/nusystematics/responsecalculators/nuenuebar_xsec_ratio.hh
+  ${CMAKE_SOURCE_DIR}/nusystematics/responsecalculators/nuenumu_xsec_ratio.hh
+  ${CMAKE_SOURCE_DIR}/nusystematics/responsecalculators/SPPLowQ2Suppression.hh)
 
 INSTALL(FILES ${RC_HDRFILES} DESTINATION include/nusystematics/responsecalculators)
 
@@ -279,10 +285,13 @@ target_link_libraries(TweaksNuSyst_Validate ${ROOT_LIBS})
 INSTALL(TARGETS TweaksNuSyst_Validate DESTINATION bin)
 
 ####### interface
-INSTALL(FILES ${CMAKE_SOURCE_DIR}/nusystematics/interface/IGENIESystProvider_tool.hh DESTINATION include/nusystematics/interface)
+INSTALL(FILES ${CMAKE_SOURCE_DIR}/nusystematics/interface/IGENIESystProvider_tool.hh 
+        DESTINATION include/nusystematics/interface)
 
 ####### response_helper
-INSTALL(FILES ${CMAKE_SOURCE_DIR}/nusystematics/artless/response_helper.hh DESTINATION include/nusystematics/artless)
+INSTALL(FILES ${CMAKE_SOURCE_DIR}/nusystematics/artless/response_helper.hh
+              ${CMAKE_SOURCE_DIR}/nusystematics/artless/make_instance.hh
+        DESTINATION include/nusystematics/artless)
 
 ####### fhicl files
 file(GLOB FCL ${CMAKE_SOURCE_DIR}/nusystematics/fcl/*.fcl)

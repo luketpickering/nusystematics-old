@@ -11,6 +11,7 @@
 #include "nusystematics/artless/response_helper.hh"
 
 #include "fhiclcpp/ParameterSet.h"
+#include "fhiclcpp/make_ParameterSet.h"
 
 #include <fstream>
 #include <iomanip>
@@ -64,7 +65,7 @@ int main(int argc, char const *argv[]) {
     exit(1);
   }
 
-  fhicl::ParameterSet in_ps = fhicl::ParameterSet::make(cliopts::fclname);
+  fhicl::ParameterSet in_ps = fhicl::make_ParameterSet(cliopts::fclname);
 
   std::vector<std::unique_ptr<nusyst::IGENIESystProvider_tool>> tools =
       systtools::ConfigureISystProvidersFromToolConfig<

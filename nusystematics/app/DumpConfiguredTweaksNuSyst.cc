@@ -15,6 +15,7 @@
 #endif
 
 #include "fhiclcpp/ParameterSet.h"
+#include "fhiclcpp/make_ParameterSet.h"
 
 #ifndef NO_ART
 #include "cetlib/filepath_maker.h"
@@ -24,9 +25,10 @@
 #include "Framework/GHEP/GHepParticle.h"
 #include "Framework/GHEP/GHepUtils.h"
 #include "Framework/Messenger/Messenger.h"
-#include "Ntuple/NtpMCEventRecord.h"
+#include "Framework/Ntuple/NtpMCEventRecord.h"
 
 #include "TChain.h"
+#include "TObjString.h"
 #include "TFile.h"
 
 #include <algorithm>
@@ -351,10 +353,9 @@ fhicl::ParameterSet ReadParameterSet(char const *[]) {
   }
   default: {}
   }
-  //fhicl::make_ParameterSet(cliopts::fclname, *fm, ps);
   ps = fhicl::ParameterSet::make(cliopts::fclname, *fm);
 #else
-  ps = fhicl::ParameterSet::make(cliopts::fclname);
+  ps = fhicl::make_ParameterSet(cliopts::fclname);
 #endif
   return ps;
 }

@@ -24,47 +24,44 @@ endif()
 
 if(USEART) # This is the standard, CET-empowered build for building the art module and associated tools
 
+  # cetbuildtools contains our cmake modules
+  find_package(cetbuildtools REQUIRED)
 
-# cetbuildtools contains our cmake modules
-find_package(cetbuildtools REQUIRED)
+  list(APPEND CMAKE_MODULE_PATH $ENV{CANVAS_ROOT_IO_DIR}/Modules $ENV{ART_DIR}/Modules)
 
-list(APPEND CMAKE_MODULE_PATH $ENV{CANVAS_ROOT_IO_DIR}/Modules $ENV{ART_DIR}/Modules)
+  include(CetCMakeEnv)
+  cet_cmake_env()
 
-include(CetCMakeEnv)
-cet_cmake_env()
+  cet_set_compiler_flags(DIAGS CAUTIOUS
+    WERROR
+    NO_UNDEFINED
+    EXTRA_FLAGS -pedantic )
 
-cet_set_compiler_flags(DIAGS CAUTIOUS
-  WERROR
-  NO_UNDEFINED
-  EXTRA_FLAGS -pedantic )
+  cet_report_compiler_flags()
 
-cet_report_compiler_flags()
+  unset(GSL_FOUND CACHE) # Workaround infelicity in CMake's FindPkgConfig.cmake.
+  find_ups_product(gsl)
+  find_ups_product( systematicstools )
+  find_ups_product( nugen )
+  find_ups_product( art )
+  find_ups_product(art_root_io)
+  find_ups_product( genie )
+  find_ups_product( log4cpp )
+  find_ups_product( ifdh_art )
+  find_ups_product( lhapdf )
 
-unset(GSL_FOUND CACHE) # Workaround infelicity in CMake's FindPkgConfig.cmake.
-find_ups_product(gsl)
-find_ups_product( systematicstools )
-find_ups_product( nugen )
-find_ups_product( art )
-find_ups_product(art_root_io)
-find_ups_product( genie )
-find_ups_product( log4cpp )
-find_ups_product( ifdh_art )
-find_ups_product( lhapdf )
+  # macros for dictionary and simple_plugin
+  include(ArtDictionary)
+  include(ArtMake)
+  include(BuildPlugins)
 
-# macros for dictionary and simple_plugin
-include(ArtDictionary)
-include(ArtMake)
-include(BuildPlugins)
+  # include search path
+  include_directories ( $ENV{GENIE_INC}/GENIE )
 
-# include search path
-include_directories ( $ENV{GENIE_INC}/GENIE )
+  cet_find_library( LHAPDF NAMES LHAPDF PATHS ENV LHAPDF_LIB NO_DEFAULT_PATH )
+  cet_find_library( LOG4CPP NAMES log4cpp PATHS ENV LOG4CPP_LIB NO_DEFAULT_PATH )
 
-cet_find_library( PYTHIA6 NAMES Pythia6 PATHS ENV PYLIB NO_DEFAULT_PATH )
-cet_find_library( XML2 NAMES xml2 PATHS $ENV{LIBXML2_FQ_DIR}/lib NO_DEFAULT_PATH )
-cet_find_library( LHAPDF NAMES LHAPDF PATHS ENV LHAPDF_LIB NO_DEFAULT_PATH )
-cet_find_library( LOG4CPP NAMES log4cpp PATHS ENV LOG4CPP_LIB NO_DEFAULT_PATH )
-
-# the GENIE libraries are already defined, but we need the lib list
+  # the GENIE libraries are already defined, but we need the lib list
   set (GENIE_LIB_LIST GFWMSG
                       GFWREG
                       GFWALG
@@ -116,17 +113,17 @@ cet_find_library( LOG4CPP NAMES log4cpp PATHS ENV LOG4CPP_LIB NO_DEFAULT_PATH )
                       GRWCLC
                       )
 
-# ADD SOURCE CODE SUBDIRECTORIES HERE
-add_subdirectory(nusystematics)
+  # ADD SOURCE CODE SUBDIRECTORIES HERE
+  add_subdirectory(nusystematics)
 
-# tests
-add_subdirectory(test)
+  # tests
+  add_subdirectory(test)
 
-# ups - table and config files
-add_subdirectory(ups)
+  # ups - table and config files
+  add_subdirectory(ups)
 
-# packaging utility
-include(UseCPack)
+  # packaging utility
+  include(UseCPack)
 
 else() #
 
@@ -143,3 +140,5 @@ else() #
   add_subdirectory(nusystematics/artless)
 
 endif()
+
+

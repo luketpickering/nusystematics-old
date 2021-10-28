@@ -238,15 +238,13 @@ SystMetaData ConfigureQEParameterHeaders(fhicl::ParameterSet const &cfg,
 
   // These are all independent and based upon the channel that was generated
   SystMetaData VecFFCCQEmd = ConfigureSetOfIndependentParameters(
-      cfg, firstParamId,
-      {kXSecTwkDial_VecFFCCQEshape});
+      cfg, firstParamId, {kXSecTwkDial_VecFFCCQEshape});
   ExtendSystMetaData(QEmd, std::move(VecFFCCQEmd));
 
   bool AxFFCCQEDipoleToZExp =
       cfg.get<bool>("AxFFCCQEDipoleToZExp", false) || IsZExpReWeight;
 
-  tool_options.put<bool>("AxFFCCQEDipoleToZExp",AxFFCCQEDipoleToZExp);
-
+  tool_options.put<bool>("AxFFCCQEDipoleToZExp", AxFFCCQEDipoleToZExp);
 
   return QEmd;
 } // namespace nusyst
@@ -383,22 +381,14 @@ SystMetaData ConfigureFSIParameterHeaders(fhicl::ParameterSet const &cfg,
 
   SystMetaData FSImd = ConfigureSetOfDependentParameters(
       cfg, firstParamId, tool_options, "FSI_pi_VariationResponse",
-      {kINukeTwkDial_MFP_pi, kINukeTwkDial_FrCEx_pi,
-       // kINukeTwkDial_FrElas_pi,
-       // The pion elastic fate has been removed in hA2018 for GENIE v3
-       // -- S. Gardiner, 19 December 2018
-       kINukeTwkDial_FrInel_pi, kINukeTwkDial_FrAbs_pi,
-       kINukeTwkDial_FrPiProd_pi});
+      {kINukeTwkDial_MFP_pi, kINukeTwkDial_FrCEx_pi, kINukeTwkDial_FrInel_pi,
+       kINukeTwkDial_FrAbs_pi, kINukeTwkDial_FrPiProd_pi});
   firstParamId += FSImd.size();
 
   SystMetaData FSI_N_md = ConfigureSetOfDependentParameters(
       cfg, firstParamId, tool_options, "FSI_N_VariationResponse",
-      {kINukeTwkDial_MFP_N, kINukeTwkDial_FrCEx_N,
-       // kINukeTwkDial_FrElas_N,
-       // The nucleon elastic fate has been removed in hA2018 for GENIE v3
-       // -- S. Gardiner, 19 December 2018
-       kINukeTwkDial_FrInel_N, kINukeTwkDial_FrAbs_N,
-       kINukeTwkDial_FrPiProd_N});
+      {kINukeTwkDial_MFP_N, kINukeTwkDial_FrCEx_N, kINukeTwkDial_FrInel_N,
+       kINukeTwkDial_FrAbs_N, kINukeTwkDial_FrPiProd_N});
 
   ExtendSystMetaData(FSImd, std::move(FSI_N_md));
 

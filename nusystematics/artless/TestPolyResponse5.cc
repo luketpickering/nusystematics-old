@@ -6,7 +6,7 @@
 #include "Framework/EventGen/EventRecord.h"
 #include "Framework/GHEP/GHepUtils.h"
 #include "Framework/Messenger/Messenger.h"
-#include "Ntuple/NtpMCEventRecord.h"
+#include "Framework/Ntuple/NtpMCEventRecord.h"
 
 // Included by fhiclcpp-simple will not be available in art-ful
 #include "string_parsers/from_string.hxx"
@@ -285,7 +285,7 @@ int main(int argc, char const *argv[]) {
           std::cout << "At " << vals[NIds * NTests + i] << " = "
                     << calced[NIds * NTests + i] << " | "
                     << responses5[NIds * NTests + i] << std::endl;
-                    
+
           SystParamHeader const &hdr = nrh.GetHeader(pr.pid);
 
           for (size_t step = 0; step < hdr.paramVariations.size(); ++step) {
