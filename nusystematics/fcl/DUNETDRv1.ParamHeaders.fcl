@@ -645,7 +645,7 @@ generated_systematic_provider_configuration: {
         instance_name: DUNE_TDR_Splines
         parameter_headers: [
             MaCCQE,
-            VecFFCCQEshape,
+            #VecFFCCQEshape,
             MaNCEL,
             EtaNCEL,
             MaCCRES,
