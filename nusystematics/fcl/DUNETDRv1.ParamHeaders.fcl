@@ -243,6 +243,7 @@ generated_systematic_provider_configuration: {
         }
         CCQEPauliSupViaKF: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 1,
                 1,
@@ -617,6 +618,7 @@ generated_systematic_provider_configuration: {
         }
         Theta_Delta2Npi: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 1,
                 1,
@@ -631,6 +633,7 @@ generated_systematic_provider_configuration: {
         }
         VecFFCCQEshape: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 1,
                 1,
@@ -690,6 +693,7 @@ generated_systematic_provider_configuration: {
     MINERvAE2p2h_DUNE_TDR_FakeData: {
         E2p2h_A_nu: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -1,
                 -1,
@@ -704,6 +708,7 @@ generated_systematic_provider_configuration: {
         }
         E2p2h_A_nubar: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -1,
                 -1,
@@ -718,6 +723,7 @@ generated_systematic_provider_configuration: {
         }
         E2p2h_B_nu: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -1,
                 -1,
@@ -732,6 +738,7 @@ generated_systematic_provider_configuration: {
         }
         E2p2h_B_nubar: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -1,
                 -1,
@@ -764,6 +771,7 @@ generated_systematic_provider_configuration: {
     MINERvAq0q3Weighting_DUNE_TDR_FakeData: {
         Mnv2p2hGaussEnhancement: {
             centralParamValue: 1
+            isSplineable: true
             paramVariations: [
                 4,
                 4,
@@ -793,6 +801,7 @@ generated_systematic_provider_configuration: {
     MKSinglePiTemplate_DUNE_TDR_FakeData: {
         MKSPP_ReWeight: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 1,
                 1,
@@ -859,6 +868,7 @@ generated_systematic_provider_configuration: {
     MiscInteractionSysts_DUNE_TDR_FakeData: {
         C12ToAr40_2p2hScaling_nu: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 1,
                 1,
@@ -873,6 +883,7 @@ generated_systematic_provider_configuration: {
         }
         C12ToAr40_2p2hScaling_nubar: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 1,
                 1,
@@ -887,6 +898,7 @@ generated_systematic_provider_configuration: {
         }
         SPPLowQ2Suppression: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 1,
                 1,
@@ -902,6 +914,7 @@ generated_systematic_provider_configuration: {
         instance_name: DUNE_TDR_FakeData
         nuenuebar_xsec_ratio: {
             centralParamValue: 1
+            isSplineable: true
             paramVariations: [
                 0,
                 0,
@@ -916,6 +929,7 @@ generated_systematic_provider_configuration: {
         }
         nuenumu_xsec_ratio: {
             centralParamValue: 1
+            isSplineable: true
             paramVariations: [
                 0,
                 0,
@@ -943,6 +957,7 @@ generated_systematic_provider_configuration: {
     NOvAStyleNonResPionNorm_DUNE_TDR_FakeData: {
         NR_nu_n_CC_2Pi: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -2,
                 -2,
@@ -957,6 +972,7 @@ generated_systematic_provider_configuration: {
         }
         NR_nu_n_CC_3Pi: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -2,
                 -2,
@@ -971,6 +987,7 @@ generated_systematic_provider_configuration: {
         }
         NR_nu_n_NC_1Pi: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -2,
                 -2,
@@ -985,6 +1002,7 @@ generated_systematic_provider_configuration: {
         }
         NR_nu_n_NC_2Pi: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -2,
                 -2,
@@ -999,6 +1017,7 @@ generated_systematic_provider_configuration: {
         }
         NR_nu_n_NC_3Pi: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -2,
                 -2,
@@ -1028,6 +1047,7 @@ generated_systematic_provider_configuration: {
         }
         NR_nu_p_CC_2Pi: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -2,
                 -2,
@@ -1042,6 +1062,7 @@ generated_systematic_provider_configuration: {
         }
         NR_nu_p_CC_3Pi: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -2,
                 -2,
@@ -1056,6 +1077,7 @@ generated_systematic_provider_configuration: {
         }
         NR_nu_p_NC_1Pi: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -2,
                 -2,
@@ -1070,6 +1092,7 @@ generated_systematic_provider_configuration: {
         }
         NR_nu_p_NC_2Pi: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -2,
                 -2,
@@ -1084,6 +1107,7 @@ generated_systematic_provider_configuration: {
         }
         NR_nu_p_NC_3Pi: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -2,
                 -2,
@@ -1098,6 +1122,7 @@ generated_systematic_provider_configuration: {
         }
         NR_nubar_n_CC_1Pi: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -2,
                 -2,
@@ -1112,6 +1137,7 @@ generated_systematic_provider_configuration: {
         }
         NR_nubar_n_CC_2Pi: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -2,
                 -2,
@@ -1126,6 +1152,7 @@ generated_systematic_provider_configuration: {
         }
         NR_nubar_n_CC_3Pi: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -2,
                 -2,
@@ -1140,6 +1167,7 @@ generated_systematic_provider_configuration: {
         }
         NR_nubar_n_NC_1Pi: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -2,
                 -2,
@@ -1154,6 +1182,7 @@ generated_systematic_provider_configuration: {
         }
         NR_nubar_n_NC_2Pi: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -2,
                 -2,
@@ -1168,6 +1197,7 @@ generated_systematic_provider_configuration: {
         }
         NR_nubar_n_NC_3Pi: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -2,
                 -2,
@@ -1182,6 +1212,7 @@ generated_systematic_provider_configuration: {
         }
         NR_nubar_p_CC_1Pi: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -2,
                 -2,
@@ -1196,6 +1227,7 @@ generated_systematic_provider_configuration: {
         }
         NR_nubar_p_CC_2Pi: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -2,
                 -2,
@@ -1210,6 +1242,7 @@ generated_systematic_provider_configuration: {
         }
         NR_nubar_p_CC_3Pi: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -2,
                 -2,
@@ -1224,6 +1257,7 @@ generated_systematic_provider_configuration: {
         }
         NR_nubar_p_NC_1Pi: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -2,
                 -2,
@@ -1238,6 +1272,7 @@ generated_systematic_provider_configuration: {
         }
         NR_nubar_p_NC_2Pi: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -2,
                 -2,
@@ -1252,6 +1287,7 @@ generated_systematic_provider_configuration: {
         }
         NR_nubar_p_NC_3Pi: {
             centralParamValue: 0
+            isSplineable: true
             paramVariations: [
                 -2,
                 -2,
