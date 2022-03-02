@@ -69,7 +69,7 @@ if(NOT "${CMAKE_PROJECT_NAME} " STREQUAL "nusystematics ")
   include(${nusystematics_CMAKE_DIR}/nusystematicsVersion.cmake)
 
   find_path(nusystematics_INCLUDE_DIR
-    NAMES nusystematics/interface/types.hh
+    NAMES nusystematics/interface/IGENIESystProvider_tool.hh
     PATHS ${nusystematics_CMAKE_DIR}/../include
   )
 

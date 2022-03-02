@@ -3,6 +3,8 @@ if [ -z "${systematicstools_ROOT}" ]; then
   source "@systematicstools_CMAKE_DIR@/../setup.sh"
 fi
 
+export nusystematics_ROOT=@CMAKE_INSTALL_PREFIX@
+
 add_to_PATH "@CMAKE_INSTALL_PREFIX@/bin"
 
 add_to_LD_LIBRARY_PATH "@CMAKE_INSTALL_PREFIX@/lib"
