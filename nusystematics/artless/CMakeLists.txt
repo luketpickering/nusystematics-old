@@ -86,7 +86,7 @@ install(EXPORT nusystematics-targets
 install(FILES
   ${CMAKE_CURRENT_SOURCE_DIR}/cmake/nusystematicsConfig.cmake
   ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindGENIE3.cmake
-  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/parseConfigApp.cmake 
+  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/ParseConfigApps.cmake 
   DESTINATION cmake)
 
 FILE(WRITE ${CMAKE_INSTALL_PREFIX}/cmake/nusystematicsVersion.cmake 
