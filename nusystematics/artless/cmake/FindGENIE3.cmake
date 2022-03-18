@@ -22,7 +22,7 @@ find_package_handle_standard_args(GENIE3
 
 if(GENIE3_FOUND)
 
-  include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/parseConfigApp.cmake)
+  include(parseConfigApp)
 
   GetLibs(CONFIG_APP genie-config ARGS --libs OUTPUT_VARIABLE GENIE3_LIBS)
 
