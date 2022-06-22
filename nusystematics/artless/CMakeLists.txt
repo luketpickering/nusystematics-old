@@ -1,3 +1,12 @@
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/CPM.cmake)
+CPMFindPackage(
+    NAME CMakeModules
+    GIT_TAG v0.0.6
+    GITHUB_REPOSITORY NuHepMC/CMakeModules
+    DOWNLOAD_ONLY
+)
+include(${CMakeModules_SOURCE_DIR}/NuHepMCModules.cmake)
+
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/nusystematicsConfig.cmake)
 
 ####### utility library
@@ -85,8 +94,6 @@ install(EXPORT nusystematics-targets
 
 install(FILES
   ${CMAKE_CURRENT_SOURCE_DIR}/cmake/nusystematicsConfig.cmake
-  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindGENIE3.cmake
-  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/ParseConfigApps.cmake 
   DESTINATION cmake)
 
 FILE(WRITE ${CMAKE_INSTALL_PREFIX}/cmake/nusystematicsVersion.cmake 
