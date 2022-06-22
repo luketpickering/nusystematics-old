@@ -1,3 +1,14 @@
+get_filename_component(nusystematicsDependencies_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+
+include(${nusystematicsDependencies_CMAKE_DIR}/CPM.cmake)
+CPMFindPackage(
+    NAME CMakeModules
+    GIT_TAG v0.0.6
+    GITHUB_REPOSITORY NuHepMC/CMakeModules
+    DOWNLOAD_ONLY
+)
+include(${CMakeModules_SOURCE_DIR}/NuHepMCModules.cmake)
+
 include(CMessage)
 
 find_package(systematicstools REQUIRED)

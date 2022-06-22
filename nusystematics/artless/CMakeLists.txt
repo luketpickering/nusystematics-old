@@ -1,12 +1,3 @@
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/CPM.cmake)
-CPMFindPackage(
-    NAME CMakeModules
-    GIT_TAG v0.0.6
-    GITHUB_REPOSITORY NuHepMC/CMakeModules
-    DOWNLOAD_ONLY
-)
-include(${CMakeModules_SOURCE_DIR}/NuHepMCModules.cmake)
-
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/nusystematicsDependencies.cmake)
 
 ####### utility library
@@ -103,6 +94,7 @@ configure_package_config_file(
 
 install(FILES 
     ${CMAKE_CURRENT_SOURCE_DIR}/cmake/nusystematicsDependencies.cmake 
+    ${CMAKE_CURRENT_SOURCE_DIR}/cmake/CPM.cmake 
     ${CMAKE_BINARY_DIR}/nusystematicsConfig.cmake 
   DESTINATION ${CMAKE_INSTALL_PREFIX}/cmake)
 
