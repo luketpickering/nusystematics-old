@@ -1,0 +1,33 @@
+SET(nusystematics_VERSION @nusystematics_VERSION@)
+
+@PACKAGE_INIT@
+
+if(NOT TARGET nusystematics::all)
+  get_filename_component(nusystematics_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+  include(${nusystematics_CMAKE_DIR}/nusystematicsTargets.cmake)
+  include(${nusystematics_CMAKE_DIR}/nusystematicsDependencies.cmake)
+
+  find_path(nusystematics_INCLUDE_DIR
+    NAMES nusystematics/interface/IGENIESystProvider_tool.hh
+    PATHS ${nusystematics_CMAKE_DIR}/../include
+  )
+
+  include(CMessage)
+  cmessage(STATUS "Found nusystematics (Version: ${nusystematics_VERSION}):")
+  cmessage(STATUS "   nusystematics_INCLUDE_DIR: ${nusystematics_INCLUDE_DIR}")
+  cmessage(STATUS "       nusystematics_VERSION: ${nusystematics_VERSION}")
+
+  include(FindPackageHandleStandardArgs)
+  find_package_handle_standard_args(nusystematics
+      REQUIRED_VARS 
+        nusystematics_INCLUDE_DIR
+      VERSION_VAR 
+        nusystematics_VERSION
+  )
+  add_library(nusystematics::all INTERFACE IMPORTED)
+  set_target_properties(nusystematics::all PROPERTIES
+      INTERFACE_INCLUDE_DIRECTORIES ${nusystematics_INCLUDE_DIR}
+      INTERFACE_LINK_LIBRARIES 
+        "nusystematics::systproviders"
+  )
+endif()

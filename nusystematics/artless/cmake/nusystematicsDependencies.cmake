@@ -1,0 +1,10 @@
+include(CMessage)
+
+find_package(systematicstools REQUIRED)
+find_package(GENIE3 REQUIRED)
+
+if(DEFINED ROOT_CXX_STANDARD)
+  if(NOT DEFINED CMAKE_CXX_STANDARD OR ROOT_CXX_STANDARD GREATER CMAKE_CXX_STANDARD)
+    set(CMAKE_CXX_STANDARD ${ROOT_CXX_STANDARD})
+  endif()
+endif()

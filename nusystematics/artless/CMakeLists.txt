@@ -7,7 +7,7 @@ CPMFindPackage(
 )
 include(${CMakeModules_SOURCE_DIR}/NuHepMCModules.cmake)
 
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/nusystematicsConfig.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/nusystematicsDependencies.cmake)
 
 ####### utility library
 SET(utility_HDRFILES
@@ -92,12 +92,24 @@ install(EXPORT nusystematics-targets
   DESTINATION ${CMAKE_INSTALL_PREFIX}/cmake
 )
 
-install(FILES
-  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/nusystematicsConfig.cmake
-  DESTINATION cmake)
+include(CMakePackageConfigHelpers)
+configure_package_config_file(
+  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/nusystematicsConfig.cmake.in 
+  ${CMAKE_BINARY_DIR}/nusystematicsConfig.cmake
+  INSTALL_DESTINATION 
+    /this/is/ignored/for/some/reason/thanks/kitware
+  NO_SET_AND_CHECK_MACRO
+  NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 
-FILE(WRITE ${CMAKE_INSTALL_PREFIX}/cmake/nusystematicsVersion.cmake 
-  "SET(nusystematics_VERSION ${nusystematics_VERSION})\n" )
+install(FILES 
+    ${CMAKE_CURRENT_SOURCE_DIR}/cmake/nusystematicsDependencies.cmake 
+    ${CMAKE_BINARY_DIR}/nusystematicsConfig.cmake 
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/cmake)
+
+write_basic_package_version_file(
+  ${CMAKE_INSTALL_PREFIX}/cmake/nusystematicsConfigVersion.cmake
+  VERSION ${nusystematics_VERSION}
+  COMPATIBILITY AnyNewerVersion)
 
 ####### fhicl files
 file(GLOB FCL ${CMAKE_SOURCE_DIR}/nusystematics/fcl/*.fcl)
