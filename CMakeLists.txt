@@ -16,7 +16,6 @@
 # use cmake 3.3 or later
 cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 
-find_package(cetmodules REQUIRED)
 project(nusystematics VERSION 01.02.04 LANGUAGES CXX)
 
 if(NOT DEFINED USEART) #by default build in ART mode
@@ -25,6 +24,7 @@ endif()
 
 if(USEART) # This is the standard, CET-empowered build for building the art module and associated tools
 
+find_package(cetmodules REQUIRED)
 
 include(CetCMakeEnv)
 cet_cmake_env()
@@ -75,6 +75,10 @@ else() # building without cetmodules
   elseif(NOT DEFINED CMAKE_INSTALL_PREFIX)
     set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/${CMAKE_SYSTEM_NAME}")
   endif()
+
+  # include search path
+  include_directories ( $ENV{GENIE_INC}/GENIE )
+  message(STATUS "Check Genie includes: $ENV{GENIE_INC}")
   message(STATUS "Installing to: ${CMAKE_INSTALL_PREFIX}")
 
   add_subdirectory(nusystematics/artless)
