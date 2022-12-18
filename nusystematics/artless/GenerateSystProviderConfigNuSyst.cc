@@ -12,6 +12,10 @@
 
 #include "fhiclcpp/ParameterSet.h"
 
+#ifdef NO_ART
+#include "fhiclcpp/make_ParameterSet.h"
+#endif
+
 #include <fstream>
 #include <iomanip>
 #include <iostream>
@@ -64,7 +68,11 @@ int main(int argc, char const *argv[]) {
     exit(1);
   }
 
+#ifndef NO_ART
   fhicl::ParameterSet in_ps = fhicl::ParameterSet::make(cliopts::fclname);
+#else
+  fhicl::ParameterSet in_ps = fhicl::make_ParameterSet(cliopts::fclname);
+#endif
 
   std::vector<std::unique_ptr<nusyst::IGENIESystProvider_tool>> tools =
       systtools::ConfigureISystProvidersFromToolConfig<

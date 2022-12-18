@@ -4,7 +4,7 @@
 #include "Framework/GHEP/GHepParticle.h"
 #include "Framework/GHEP/GHepUtils.h"
 #include "Framework/Messenger/Messenger.h"
-#include "Ntuple/NtpMCEventRecord.h"
+#include "Framework/Ntuple/NtpMCEventRecord.h"
 
 #include "TChain.h"
 #include "TFile.h"

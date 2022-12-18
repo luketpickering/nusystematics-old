@@ -13,6 +13,10 @@
 
 #include "fhiclcpp/ParameterSet.h"
 
+#ifdef NO_ART
+#include "fhiclcpp/make_ParameterSet.h"
+#endif
+
 #include "Framework/EventGen/EventRecord.h"
 
 #include "TFile.h"
@@ -70,7 +74,11 @@ public:
   void LoadConfiguration(std::string const &fhicl_config_filename) {
     config_file = fhicl_config_filename;
 
+#ifndef NO_ART
     fhicl::ParameterSet ps = fhicl::ParameterSet::make(config_file);
+#else
+    fhicl::ParameterSet ps = fhicl::make_ParameterSet(config_file);
+#endif
     LoadProvidersAndHeaders(ps.get<fhicl::ParameterSet>(
         "generated_systematic_provider_configuration"));
 
