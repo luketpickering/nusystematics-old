@@ -330,6 +330,35 @@ inline std::string DumpGENIEEv(genie::EventRecord const &ev) {
   return ss.str();
 }
 
+// Copy of https://github.com/NuSoftHEP/nugen/blob/6bcd82d9310bd0480df9a8ed03bfc8d8a2c80eff/nugen/EventGeneratorBase/GENIE/GENIE2ART.cxx#L98-L126
+inline std::string ExpandEnvVar(const std::string& s)
+{
+  // utility function:
+  // if input "s" starts w/ $, return corresponding env var value,
+  // otherwise return as is
+
+  if ( s.find('$') != 0 ) return s;
+
+  // need to remove ${}'s
+  std::string sEnvVar = s;
+  char rmchars[] = "$(){} ";
+  for (unsigned int i = 0; i < strlen(rmchars); ++i) {
+    // remove moves matching characters in [first,last) to end and
+    //   returns a past-the-end iterator for the new end of the range [funky!]
+    // erase actually trims the string
+    sEnvVar.erase( std::remove(sEnvVar.begin(), sEnvVar.end(),
+                               rmchars[i]), sEnvVar.end() );
+  }
+  const char* charEnvValue = std::getenv(sEnvVar.c_str());
+  if ( ! charEnvValue ) {
+    // resolved into an empty string ... not what one would expect
+      std::cout << " can't resolve " << s << " via getenv(\"" << sEnvVar << "\")" << std::endl;
+    return s; // return original (though we won't get here due to throw)
+  }
+  return std::string(charEnvValue);
+
+}
+
 } // namespace nusyst
 
 #endif

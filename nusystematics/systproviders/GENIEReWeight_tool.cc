@@ -5,6 +5,7 @@
 
 #include "systematicstools/utility/printers.hh"
 #include "systematicstools/utility/string_parsers.hh"
+#include "nusystematics/utility/GENIEUtils.hh"
 
 #ifndef NO_ART
 #include "art/Utilities/ToolMacros.h"
@@ -13,6 +14,8 @@
 // GENIE
 #include "Framework/GHEP/GHepUtils.h"
 #include "Framework/Messenger/Messenger.h"
+#include "Framework/Utils/RunOpt.h"
+#include "Framework/Utils/XSecSplineList.h"
 
 #include "TH1.h"
 
@@ -119,8 +122,47 @@ bool GENIEReWeight::SetupResponseCalculator(
   std::string evgen_list_name = tool_options.get<std::string>("EventGeneratorList", "");
   std::cout << "[INFO]: genie_tune_name = " << genie_tune_name << std::endl;
   std::cout << "[INFO]: evgen_list_name = " << evgen_list_name << std::endl;
+
+#ifndef NO_ART
   // Tell GENIE about the event generator list and tune
   evgb::SetEventGeneratorListAndTune( evgen_list_name, genie_tune_name );
+#else
+
+  // Constructor automatically calls grunopt->Init();
+  genie::RunOpt* grunopt = genie::RunOpt::Instance();
+  // SetEventGeneratorList wasn't introduced until R-3
+  std::string expEvtGenListName = nusyst::ExpandEnvVar(evgen_list_name);
+  if ( expEvtGenListName != "" ) {
+    grunopt->SetEventGeneratorList(expEvtGenListName);
+  }
+
+  std::string expTuneName = nusyst::ExpandEnvVar(genie_tune_name);
+  if ( expTuneName != genie_tune_name ) {
+    std::cout << "TuneName started as '" << genie_tune_name << "' "
+                             << " converted to " << expTuneName << std::endl;;
+  }
+
+  // If the XSecSplineList returns a non-empty string as the current tune name,
+  // then genie::RunOpt::BuildTune() has already been called.
+  std::string current_tune = genie::XSecSplineList::Instance()->CurrentTune();
+  if ( current_tune.empty() ) {
+    // We need to build the GENIE tune config
+      std::cout << "Configuring GENIE tune \""
+        << expTuneName << '\"' << std::endl;;
+      grunopt->SetTuneName( expTuneName );
+      grunopt->BuildTune();
+      std::cout << *(grunopt->Tune()) << std::endl;
+    }
+    else {
+      // It has already been built, so just check consistency
+      if ( expTuneName != current_tune) {
+        std::cout << "[TuneNameMismatch] Requested GENIE tune \""
+          << expTuneName << "\" does not match previously built tune \""
+          << current_tune << '\"' << std::endl;
+      }
+    }
+
+#endif
 
   extend_ResponseToGENIEParameters(
       ConfigureQEWeightEngine(GetSystMetaData(), tool_options));
