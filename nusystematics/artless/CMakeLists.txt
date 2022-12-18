@@ -4,8 +4,8 @@ if (NOT DEFINED SYSTTOOLS_DIR)
 
   ExternalProject_Add(systematicstools
     PREFIX "${PROJECT_BINARY_DIR}/systematicstools"
-    GIT_REPOSITORY https://github.com/luketpickering/systematicstools.git
-    GIT_TAG develop
+    GIT_REPOSITORY https://github.com/jedori0228/systematicstools.git
+    GIT_TAG feature/jskim_artless
     UPDATE_DISCONNECTED 1
     CMAKE_ARGS -DUSEART=0
     -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
@@ -70,6 +70,7 @@ LIST(APPEND ROOT_LIBS
   Matrix
   Physics
   MathCore
+  MathMore
   Thread
   EG
   Geom
