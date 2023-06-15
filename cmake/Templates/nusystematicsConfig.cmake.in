@@ -2,7 +2,7 @@
 
 set(systematicstools_VERSION @PROJECT_VERSION@)
 
-find_package(systematicstools 23.6 REQUIRED)
+find_package(systematicstools 23.06 REQUIRED)
 
 #expect that NuHepMC/CMakeModules gets installed to the prefix/cmake
 get_filename_component(CMakeModules_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}../../../cmake" PATH)

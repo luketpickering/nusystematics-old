@@ -11,7 +11,7 @@ include(${CMakeModules_SOURCE_DIR}/NuHepMCModules.cmake)
 
 include(message)
 
-find_package(systematicstools REQUIRED)
+find_package(systematicstools 23.06 REQUIRED)
 find_package(GENIE3 REQUIRED)
 
 if(DEFINED ROOT_CXX_STANDARD)
