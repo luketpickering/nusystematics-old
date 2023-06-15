@@ -20,7 +20,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "")
   set(CMAKE_BUILD_TYPE DebWithRelInfo)
 endif()
 
-LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/Modules)
+LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules)
 include(CPM)
 
 find_package(ROOT 6.10 REQUIRED)
@@ -53,7 +53,7 @@ add_library(nusystematics_dependencies INTERFACE)
 target_link_libraries(nusystematics_dependencies INTERFACE 
   fhiclcpp::includes)
 target_include_directories(nusystematics_dependencies INTERFACE 
-  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
   $<INSTALL_INTERFACE:include> )
 set_target_properties(nusystematics_dependencies PROPERTIES EXPORT_NAME commondeps)
 add_library(nusyst::commondeps ALIAS nusystematics_dependencies)
