@@ -27,8 +27,8 @@ find_package(ROOT 6.10 REQUIRED)
 
 CPMFindPackage(
     NAME systematicstools
-    GIT_TAG merge/develop_artless
-    GITHUB_REPOSITORY luketpickering/systematicstools
+    GIT_TAG develop
+    GITHUB_REPOSITORY luketpickering/systematicstools-merge
 )
 
 if(DEFINED ENV{NuHepMCModules_ROOT})
