@@ -9,7 +9,7 @@
 
 #include "systematicstools/utility/ParameterAndProviderConfigurationUtility.hh"
 
-#include "fhiclcpp/make_ParameterSet.h"
+#include "fhiclcppsimple/make_ParameterSet.h"
 
 #include "Framework/EventGen/EventRecord.h"
 

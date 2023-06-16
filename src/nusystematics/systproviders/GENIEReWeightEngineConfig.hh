@@ -4,7 +4,7 @@
 
 #include "nusystematics/systproviders/GENIEResponseParameterAssociation.hh"
 
-#include "fhiclcpp/ParameterSet.h"
+#include "fhiclcppsimple/ParameterSet.h"
 
 // GENIE
 #include "RwFramework/GReWeight.h"

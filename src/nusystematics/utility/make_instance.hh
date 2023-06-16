@@ -12,7 +12,7 @@
 #include "nusystematics/systproviders/MiscInteractionSysts_tool.hh"
 #include "nusystematics/systproviders/NOvAStyleNonResPionNorm_tool.hh"
 
-#include "fhiclcpp/ParameterSet.h"
+#include "fhiclcppsimple/ParameterSet.h"
 
 #include <memory>
 

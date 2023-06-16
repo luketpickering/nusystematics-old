@@ -2,7 +2,7 @@
 
 #include "systematicstools/interface/SystMetaData.hh"
 
-#include "fhiclcpp/ParameterSet.h"
+#include "fhiclcppsimple/ParameterSet.h"
 
 #include <string>
 

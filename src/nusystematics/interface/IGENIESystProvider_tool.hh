@@ -2,7 +2,7 @@
 
 #include "systematicstools/interface/ISystProviderTool.hh"
 
-#include "fhiclcpp/ParameterSet.h"
+#include "fhiclcppsimple/ParameterSet.h"
 
 // GENIE
 #include "Framework/EventGen/EventRecord.h"
