@@ -12,7 +12,7 @@
 
 using namespace systtools;
 using namespace nusyst;
-using namespace fhicl;
+using namespace fhiclsimple;
 
 MINERvAq0q3Weighting::MINERvAq0q3Weighting(ParameterSet const &params)
     : IGENIESystProvider_tool(params), RPATemplateReweighter(nullptr),
@@ -42,8 +42,8 @@ SystMetaData MINERvAq0q3Weighting::BuildSystMetaData(ParameterSet const &cfg,
              "for the layout.";
     }
 
-    fhicl::ParameterSet ps =
-        cfg.get<fhicl::ParameterSet>("MINERvATune_RPA_input_manifest");
+    fhiclsimple::ParameterSet ps =
+        cfg.get<fhiclsimple::ParameterSet>("MINERvATune_RPA_input_manifest");
     tool_options.put("MINERvATune_RPA_input_manifest", ps);
 
     smd.push_back(param);
@@ -109,7 +109,7 @@ SystMetaData MINERvAq0q3Weighting::BuildSystMetaData(ParameterSet const &cfg,
 }
 
 bool MINERvAq0q3Weighting::SetupResponseCalculator(
-    fhicl::ParameterSet const &tool_options) {
+    fhiclsimple::ParameterSet const &tool_options) {
 
   if (HasParam(GetSystMetaData(), "MINERvATune_RPA")) {
     ConfiguredParameters[param_t::kMINERvARPA] =
@@ -126,7 +126,7 @@ bool MINERvAq0q3Weighting::SetupResponseCalculator(
     }
 
     RPATemplateReweighter = std::make_unique<MINERvARPAq0q3_ReWeight>(
-        tool_options.get<fhicl::ParameterSet>(
+        tool_options.get<fhiclsimple::ParameterSet>(
             "MINERvATune_RPA_input_manifest"));
   }
 

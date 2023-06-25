@@ -11,7 +11,7 @@
 
 using namespace systtools;
 using namespace nusyst;
-using namespace fhicl;
+using namespace fhiclsimple;
 
 // #define DEBUG_MKSINGLEPI
 
@@ -31,8 +31,8 @@ SystMetaData FSILikeEAvailSmearing::BuildSystMetaData(ParameterSet const &cfg,
     smd.push_back(phdr);
   }
 
-  fhicl::ParameterSet templateManifest =
-      cfg.get<fhicl::ParameterSet>("FSILikeEAvailSmearing_input_manifest");
+  fhiclsimple::ParameterSet templateManifest =
+      cfg.get<fhiclsimple::ParameterSet>("FSILikeEAvailSmearing_input_manifest");
 
   if (!cfg.has_key("FSILikeEAvailSmearing_input_manifest") ||
       !cfg.is_key_to_table("FSILikeEAvailSmearing_input_manifest")) {
@@ -85,7 +85,7 @@ struct channel_id {
 } // namespace
 
 bool FSILikeEAvailSmearing::SetupResponseCalculator(
-    fhicl::ParameterSet const &tool_options) {
+    fhiclsimple::ParameterSet const &tool_options) {
 
   genie::Messenger::Instance()->SetPrioritiesFromXmlFile(
       "Messenger_whisper.xml");
@@ -108,8 +108,8 @@ bool FSILikeEAvailSmearing::SetupResponseCalculator(
            "please report to the maintiner.";
   }
 
-  fhicl::ParameterSet const &templateManifest =
-      tool_options.get<fhicl::ParameterSet>(
+  fhiclsimple::ParameterSet const &templateManifest =
+      tool_options.get<fhiclsimple::ParameterSet>(
           "FSILikeEAvailSmearing_input_manifest");
 
   ResponseParameterIdx =
@@ -133,7 +133,7 @@ bool FSILikeEAvailSmearing::SetupResponseCalculator(
     TemplateHelper th;
     th.Template = std::make_unique<FSILikeEAvailSmearing_ReWeight>();
     th.Template->LoadInputHistograms(
-        templateManifest.get<fhicl::ParameterSet>(ch.name));
+        templateManifest.get<fhiclsimple::ParameterSet>(ch.name));
     th.ZeroIsValid = th.Template->IsValidVariation(0);
 
     ChannelParameterMapping.emplace(ch.channel, std::move(th));

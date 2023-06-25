@@ -11,12 +11,12 @@
 class MiscInteractionSysts : public nusyst::IGENIESystProvider_tool {
 
 public:
-  explicit MiscInteractionSysts(fhicl::ParameterSet const &);
+  explicit MiscInteractionSysts(fhiclsimple::ParameterSet const &);
 
-  bool SetupResponseCalculator(fhicl::ParameterSet const &);
-  fhicl::ParameterSet GetExtraToolOptions() { return tool_options; }
+  bool SetupResponseCalculator(fhiclsimple::ParameterSet const &);
+  fhiclsimple::ParameterSet GetExtraToolOptions() { return tool_options; }
 
-  systtools::SystMetaData BuildSystMetaData(fhicl::ParameterSet const &,
+  systtools::SystMetaData BuildSystMetaData(fhiclsimple::ParameterSet const &,
                                             systtools::paramId_t);
 
   systtools::event_unit_response_t GetEventResponse(genie::EventRecord const &);
@@ -26,7 +26,7 @@ public:
   ~MiscInteractionSysts();
 
 private:
-  fhicl::ParameterSet tool_options;
+  fhiclsimple::ParameterSet tool_options;
 
   size_t pidx_C12ToAr40_2p2hScaling_nu;
   size_t pidx_C12ToAr40_2p2hScaling_nubar;

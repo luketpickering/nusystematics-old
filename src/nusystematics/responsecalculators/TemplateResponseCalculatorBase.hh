@@ -56,7 +56,7 @@ public:
   ///      }
   ///    ]
   ///  }
-  void LoadInputHistograms(fhicl::ParameterSet const &ps);
+  void LoadInputHistograms(fhiclsimple::ParameterSet const &ps);
 
   typedef Int_t bin_it_t;
 
@@ -112,12 +112,12 @@ void TemplateResponseCalculatorBase<
 
 template <size_t NDims, bool Continuous, size_t PolyResponseOrder>
 void TemplateResponseCalculatorBase<NDims, Continuous, PolyResponseOrder>::
-    LoadInputHistograms(fhicl::ParameterSet const &ps) {
+    LoadInputHistograms(fhiclsimple::ParameterSet const &ps) {
 
   std::string const &default_root_file = ps.get<std::string>("input_file", "");
 
-  for (fhicl::ParameterSet const &val_config :
-       ps.get<std::vector<fhicl::ParameterSet>>("inputs")) {
+  for (fhiclsimple::ParameterSet const &val_config :
+       ps.get<std::vector<fhiclsimple::ParameterSet>>("inputs")) {
     double pval = val_config.get<double>("value");
     std::string input_file =
         val_config.get<std::string>("input_file", default_root_file);

@@ -18,7 +18,7 @@
 #include <sstream>
 #include <fstream>
 
-using namespace fhicl;
+using namespace fhiclsimple;
 using namespace systtools;
 using namespace nusyst;
 
@@ -34,7 +34,7 @@ std::string GENIEReWeight::AsString() {
 SystMetaData GENIEReWeight::BuildSystMetaData(ParameterSet const &params,
                                               paramId_t firstParamId) {
 
-  tool_options = fhicl::ParameterSet();
+  tool_options = fhiclsimple::ParameterSet();
 
   bool ignore_parameter_dependence =
       params.get<bool>("ignore_parameter_dependence", false);
@@ -109,7 +109,7 @@ void GENIEReWeight::extend_ResponseToGENIEParameters(
 }
 
 bool GENIEReWeight::SetupResponseCalculator(
-    fhicl::ParameterSet const &tool_options) {
+    fhiclsimple::ParameterSet const &tool_options) {
 
   std::cout << "[INFO]: Setting up GENIE ReWeight instances..." << std::endl;
 

@@ -12,7 +12,7 @@ using namespace systtools;
 
 // #define MINERVAE2p2h_DEBUG
 
-MINERvAE2p2h::MINERvAE2p2h(fhicl::ParameterSet const &params)
+MINERvAE2p2h::MINERvAE2p2h(fhiclsimple::ParameterSet const &params)
     : IGENIESystProvider_tool(params),
       pidx_E2p2hResponse_nu(kParamUnhandled<size_t>),
       pidx_E2p2hResponse_nubar(kParamUnhandled<size_t>),
@@ -22,7 +22,7 @@ MINERvAE2p2h::MINERvAE2p2h(fhicl::ParameterSet const &params)
       pidx_E2p2hB_nubar(kParamUnhandled<size_t>), valid_file(nullptr),
       valid_tree(nullptr) {}
 
-SystMetaData MINERvAE2p2h::BuildSystMetaData(fhicl::ParameterSet const &ps,
+SystMetaData MINERvAE2p2h::BuildSystMetaData(fhiclsimple::ParameterSet const &ps,
                                              paramId_t firstId) {
 
   SystMetaData smd;
@@ -85,7 +85,7 @@ SystMetaData MINERvAE2p2h::BuildSystMetaData(fhicl::ParameterSet const &ps,
 }
 
 bool MINERvAE2p2h::SetupResponseCalculator(
-    fhicl::ParameterSet const &tool_options) {
+    fhiclsimple::ParameterSet const &tool_options) {
 
   SystMetaData const &md = GetSystMetaData();
 

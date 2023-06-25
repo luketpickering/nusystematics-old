@@ -17,12 +17,12 @@
 class MINERvAE2p2h : public nusyst::IGENIESystProvider_tool {
 
 public:
-  explicit MINERvAE2p2h(fhicl::ParameterSet const &);
+  explicit MINERvAE2p2h(fhiclsimple::ParameterSet const &);
 
-  bool SetupResponseCalculator(fhicl::ParameterSet const &);
-  fhicl::ParameterSet GetExtraToolOptions() { return tool_options; }
+  bool SetupResponseCalculator(fhiclsimple::ParameterSet const &);
+  fhiclsimple::ParameterSet GetExtraToolOptions() { return tool_options; }
 
-  systtools::SystMetaData BuildSystMetaData(fhicl::ParameterSet const &,
+  systtools::SystMetaData BuildSystMetaData(fhiclsimple::ParameterSet const &,
                                             systtools::paramId_t);
 
   systtools::event_unit_response_t GetEventResponse(genie::EventRecord const &);
@@ -32,7 +32,7 @@ public:
   ~MINERvAE2p2h();
 
 private:
-  fhicl::ParameterSet tool_options;
+  fhiclsimple::ParameterSet tool_options;
   std::pair<double, double> LimitWeights;
 
   bool ignore_parameter_dependence;
