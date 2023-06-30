@@ -13,6 +13,10 @@ ConfigureQEParameterHeaders(fhiclsimple::ParameterSet const &, systtools::paramI
                             fhiclsimple::ParameterSet &tool_options);
 
 systtools::SystMetaData
+ConfigureMECParameterHeaders(fhiclsimple::ParameterSet const &, systtools::paramId_t,
+                            fhiclsimple::ParameterSet &tool_options);
+
+systtools::SystMetaData
 ConfigureNCELParameterHeaders(fhiclsimple::ParameterSet const &, systtools::paramId_t,
                               fhiclsimple::ParameterSet &tool_options);
 

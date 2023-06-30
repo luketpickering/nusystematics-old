@@ -247,7 +247,24 @@ SystMetaData ConfigureQEParameterHeaders(fhiclsimple::ParameterSet const &cfg,
   tool_options.put<bool>("AxFFCCQEDipoleToZExp", AxFFCCQEDipoleToZExp);
 
   return QEmd;
-} // namespace nusyst
+}
+
+SystMetaData ConfigureMECParameterHeaders(fhiclsimple::ParameterSet const &cfg,
+                                          paramId_t firstParamId,
+                                          fhiclsimple::ParameterSet &tool_options) {
+
+  return ConfigureSetOfIndependentParameters(
+      cfg, firstParamId,
+      {kXSecTwkDial_NormCCMEC,
+       kXSecTwkDial_NormNCMEC,
+       kXSecTwkDial_NormEMMEC,
+       kXSecTwkDial_DecayAngMEC,
+       kXSecTwkDial_FracPN_CCMEC,
+       kXSecTwkDial_FracDelta_CCMEC,
+       kXSecTwkDial_XSecShape_CCMEC}
+  );
+
+}
 
 SystMetaData ConfigureNCELParameterHeaders(fhiclsimple::ParameterSet const &cfg,
                                            paramId_t firstParamId,
