@@ -5,7 +5,8 @@ set(systematicstools_VERSION @PROJECT_VERSION@)
 find_package(systematicstools 23.06 REQUIRED)
 
 #expect that NuHepMC/CMakeModules gets installed to the prefix/cmake
-get_filename_component(CMakeModules_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}../../../cmake" PATH)
+get_filename_component(CMakeModules_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" DIRECTORY)
+SET(CMakeModules_CMAKE_DIR ${CMakeModules_CMAKE_DIR}/../../../cmake/)
 
 if(EXISTS "${CMakeModules_CMAKE_DIR}/FindGENIE3.cmake")
   LIST(APPEND CMAKE_MODULE_PATH ${CMakeModules_CMAKE_DIR})
