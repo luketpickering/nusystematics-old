@@ -11,7 +11,7 @@
 
 using namespace nusyst;
 
-MiscInteractionSysts::MiscInteractionSysts(fhicl::ParameterSet const &params)
+MiscInteractionSysts::MiscInteractionSysts(fhiclsimple::ParameterSet const &params)
     : IGENIESystProvider_tool(params),
       pidx_C12ToAr40_2p2hScaling_nu(systtools::kParamUnhandled<size_t>),
       pidx_C12ToAr40_2p2hScaling_nubar(systtools::kParamUnhandled<size_t>),
@@ -21,7 +21,7 @@ MiscInteractionSysts::MiscInteractionSysts(fhicl::ParameterSet const &params)
       valid_file(nullptr), valid_tree(nullptr) {}
 
 systtools::SystMetaData
-MiscInteractionSysts::BuildSystMetaData(fhicl::ParameterSet const &ps,
+MiscInteractionSysts::BuildSystMetaData(fhiclsimple::ParameterSet const &ps,
                                         systtools::paramId_t firstId) {
 
   systtools::SystMetaData smd;
@@ -43,7 +43,7 @@ MiscInteractionSysts::BuildSystMetaData(fhicl::ParameterSet const &ps,
 }
 
 bool MiscInteractionSysts::SetupResponseCalculator(
-    fhicl::ParameterSet const &tool_options) {
+    fhiclsimple::ParameterSet const &tool_options) {
 
   systtools::SystMetaData const &md = GetSystMetaData();
 

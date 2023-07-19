@@ -11,7 +11,7 @@
 
 using namespace systtools;
 using namespace nusyst;
-using namespace fhicl;
+using namespace fhiclsimple;
 
 // #define DEBUG_MKSINGLEPI
 
@@ -50,8 +50,8 @@ SystMetaData MKSinglePiTemplate::BuildSystMetaData(ParameterSet const &cfg,
            "TemplateResponseCalculatorBase.hh "
            "for the layout.";
   }
-  fhicl::ParameterSet templateManifest =
-      cfg.get<fhicl::ParameterSet>("MKSPP_Template_input_manifest");
+  fhiclsimple::ParameterSet templateManifest =
+      cfg.get<fhiclsimple::ParameterSet>("MKSPP_Template_input_manifest");
   tool_options.put("MKSPP_Template_input_manifest", templateManifest);
 
   size_t NNuChannels = 0;
@@ -105,7 +105,7 @@ SystMetaData MKSinglePiTemplate::BuildSystMetaData(ParameterSet const &cfg,
 }
 
 bool MKSinglePiTemplate::SetupResponseCalculator(
-    fhicl::ParameterSet const &tool_options) {
+    fhiclsimple::ParameterSet const &tool_options) {
 
   genie::Messenger::Instance()->SetPrioritiesFromXmlFile(
       "Messenger_whisper.xml");
@@ -126,8 +126,8 @@ bool MKSinglePiTemplate::SetupResponseCalculator(
            "please report to the maintiner.";
   }
 
-  fhicl::ParameterSet const &templateManifest =
-      tool_options.get<fhicl::ParameterSet>("MKSPP_Template_input_manifest");
+  fhiclsimple::ParameterSet const &templateManifest =
+      tool_options.get<fhiclsimple::ParameterSet>("MKSPP_Template_input_manifest");
 
   ResponseParameterIdx = GetParamIndex(GetSystMetaData(), "MKSPP_ReWeight");
 
@@ -146,7 +146,7 @@ bool MKSinglePiTemplate::SetupResponseCalculator(
 
     TemplateHelper th;
     th.Template = std::make_unique<MKSinglePiTemplate_ReWeight>(
-        templateManifest.get<fhicl::ParameterSet>(ch.name));
+        templateManifest.get<fhiclsimple::ParameterSet>(ch.name));
     th.ZeroIsValid = th.Template->IsValidVariation(0);
 
     ChannelParameterMapping.emplace(ch.channel, std::move(th));

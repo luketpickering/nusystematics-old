@@ -19,7 +19,7 @@ using namespace genie::rew;
 namespace nusyst {
 
 SystMetaData
-ConfigureSetOfIndependentParameters(fhicl::ParameterSet const &cfg,
+ConfigureSetOfIndependentParameters(fhiclsimple::ParameterSet const &cfg,
                                     paramId_t firstParamId,
                                     std::vector<genie::rew::GSyst_t> Dials) {
 
@@ -38,8 +38,8 @@ ConfigureSetOfIndependentParameters(fhicl::ParameterSet const &cfg,
 }
 
 SystMetaData ConfigureSetOfDependentShapeableParameters(
-    fhicl::ParameterSet const &cfg, paramId_t firstParamId,
-    fhicl::ParameterSet &tool_options, std::string const &ResponseParameterName,
+    fhiclsimple::ParameterSet const &cfg, paramId_t firstParamId,
+    fhiclsimple::ParameterSet &tool_options, std::string const &ResponseParameterName,
     std::vector<std::pair<genie::rew::GSyst_t, genie::rew::GSyst_t>> Dials,
     bool IsShape) {
 
@@ -100,8 +100,8 @@ SystMetaData ConfigureSetOfDependentShapeableParameters(
 }
 
 SystMetaData ConfigureSetOfDependentParameters(
-    fhicl::ParameterSet const &cfg, paramId_t firstParamId,
-    fhicl::ParameterSet &tool_options, std::string const &ResponseParameterName,
+    fhiclsimple::ParameterSet const &cfg, paramId_t firstParamId,
+    fhiclsimple::ParameterSet &tool_options, std::string const &ResponseParameterName,
     std::vector<genie::rew::GSyst_t> Dials) {
 
   SystMetaData MD;
@@ -156,9 +156,9 @@ SystMetaData ConfigureSetOfDependentParameters(
   return MD;
 }
 
-SystMetaData ConfigureQEParameterHeaders(fhicl::ParameterSet const &cfg,
+SystMetaData ConfigureQEParameterHeaders(fhiclsimple::ParameterSet const &cfg,
                                          paramId_t firstParamId,
-                                         fhicl::ParameterSet &tool_options) {
+                                         fhiclsimple::ParameterSet &tool_options) {
   SystMetaData QEmd;
 
   bool MaCCQEIsShapeOnly = cfg.get<bool>("MaCCQEIsShapeOnly", false);
@@ -247,19 +247,36 @@ SystMetaData ConfigureQEParameterHeaders(fhicl::ParameterSet const &cfg,
   tool_options.put<bool>("AxFFCCQEDipoleToZExp", AxFFCCQEDipoleToZExp);
 
   return QEmd;
-} // namespace nusyst
+}
 
-SystMetaData ConfigureNCELParameterHeaders(fhicl::ParameterSet const &cfg,
+SystMetaData ConfigureMECParameterHeaders(fhiclsimple::ParameterSet const &cfg,
+                                          paramId_t firstParamId,
+                                          fhiclsimple::ParameterSet &tool_options) {
+
+  return ConfigureSetOfIndependentParameters(
+      cfg, firstParamId,
+      {kXSecTwkDial_NormCCMEC,
+       kXSecTwkDial_NormNCMEC,
+       kXSecTwkDial_NormEMMEC,
+       kXSecTwkDial_DecayAngMEC,
+       kXSecTwkDial_FracPN_CCMEC,
+       kXSecTwkDial_FracDelta_CCMEC,
+       kXSecTwkDial_XSecShape_CCMEC}
+  );
+
+}
+
+SystMetaData ConfigureNCELParameterHeaders(fhiclsimple::ParameterSet const &cfg,
                                            paramId_t firstParamId,
-                                           fhicl::ParameterSet &tool_options) {
+                                           fhiclsimple::ParameterSet &tool_options) {
   return ConfigureSetOfDependentParameters(
       cfg, firstParamId, tool_options, "NCELVariationResponse",
       {kXSecTwkDial_MaNCEL, kXSecTwkDial_EtaNCEL});
 }
 
-SystMetaData ConfigureRESParameterHeaders(fhicl::ParameterSet const &cfg,
+SystMetaData ConfigureRESParameterHeaders(fhiclsimple::ParameterSet const &cfg,
                                           paramId_t firstParamId,
-                                          fhicl::ParameterSet &tool_options) {
+                                          fhiclsimple::ParameterSet &tool_options) {
   SystMetaData RESmd;
 
   //************* CCRES
@@ -284,7 +301,7 @@ SystMetaData ConfigureRESParameterHeaders(fhicl::ParameterSet const &cfg,
   }
 
   SystMetaData CCRESmd = ConfigureSetOfDependentShapeableParameters(
-      cfg, firstParamId, tool_options, "CCResVariationResponse",
+      cfg, firstParamId, tool_options, "CCRESVariationResponse",
       {{kXSecTwkDial_MaCCRES, kXSecTwkDial_MaCCRESshape},
        {kXSecTwkDial_MvCCRES, kXSecTwkDial_MvCCRESshape}},
       CCRESIsShapeOnly);
@@ -313,7 +330,7 @@ SystMetaData ConfigureRESParameterHeaders(fhicl::ParameterSet const &cfg,
   }
 
   SystMetaData NCRESmd = ConfigureSetOfDependentShapeableParameters(
-      cfg, firstParamId, tool_options, "NCResVariationResponse",
+      cfg, firstParamId, tool_options, "NCRESVariationResponse",
       {{kXSecTwkDial_MaNCRES, kXSecTwkDial_MaNCRESshape},
        {kXSecTwkDial_MvNCRES, kXSecTwkDial_MvNCRESshape}},
       NCRESIsShapeOnly);
@@ -338,17 +355,17 @@ SystMetaData ConfigureRESParameterHeaders(fhicl::ParameterSet const &cfg,
   return RESmd;
 }
 
-SystMetaData ConfigureCOHParameterHeaders(fhicl::ParameterSet const &cfg,
+SystMetaData ConfigureCOHParameterHeaders(fhiclsimple::ParameterSet const &cfg,
                                           paramId_t firstParamId,
-                                          fhicl::ParameterSet &tool_options) {
+                                          fhiclsimple::ParameterSet &tool_options) {
   return ConfigureSetOfDependentParameters(
       cfg, firstParamId, tool_options, "COHVariationResponse",
       {kXSecTwkDial_MaCOHpi, kXSecTwkDial_R0COHpi});
 }
 
-SystMetaData ConfigureDISParameterHeaders(fhicl::ParameterSet const &cfg,
+SystMetaData ConfigureDISParameterHeaders(fhiclsimple::ParameterSet const &cfg,
                                           paramId_t firstParamId,
-                                          fhicl::ParameterSet &tool_options) {
+                                          fhiclsimple::ParameterSet &tool_options) {
 
   bool DISBYIsShapeOnly = cfg.get<bool>("DISBYIsShapeOnly", false);
   tool_options.put("DISBYIsShapeOnly", DISBYIsShapeOnly);
@@ -375,9 +392,9 @@ SystMetaData ConfigureDISParameterHeaders(fhicl::ParameterSet const &cfg,
   return DISmd;
 }
 
-SystMetaData ConfigureFSIParameterHeaders(fhicl::ParameterSet const &cfg,
+SystMetaData ConfigureFSIParameterHeaders(fhiclsimple::ParameterSet const &cfg,
                                           paramId_t firstParamId,
-                                          fhicl::ParameterSet &tool_options) {
+                                          fhiclsimple::ParameterSet &tool_options) {
 
   SystMetaData FSImd = ConfigureSetOfDependentParameters(
       cfg, firstParamId, tool_options, "FSI_pi_VariationResponse",
@@ -395,7 +412,7 @@ SystMetaData ConfigureFSIParameterHeaders(fhicl::ParameterSet const &cfg,
   return FSImd;
 }
 
-SystMetaData ConfigureOtherParameterHeaders(fhicl::ParameterSet const &cfg,
+SystMetaData ConfigureOtherParameterHeaders(fhiclsimple::ParameterSet const &cfg,
                                             paramId_t firstParamId) {
   return ConfigureSetOfIndependentParameters(
       cfg, firstParamId,

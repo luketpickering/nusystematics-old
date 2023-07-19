@@ -18,7 +18,7 @@
 #include <sstream>
 #include <fstream>
 
-using namespace fhicl;
+using namespace fhiclsimple;
 using namespace systtools;
 using namespace nusyst;
 
@@ -34,7 +34,7 @@ std::string GENIEReWeight::AsString() {
 SystMetaData GENIEReWeight::BuildSystMetaData(ParameterSet const &params,
                                               paramId_t firstParamId) {
 
-  tool_options = fhicl::ParameterSet();
+  tool_options = fhiclsimple::ParameterSet();
 
   bool ignore_parameter_dependence =
       params.get<bool>("ignore_parameter_dependence", false);
@@ -56,6 +56,10 @@ SystMetaData GENIEReWeight::BuildSystMetaData(ParameterSet const &params,
   SystMetaData QEmd =
       ConfigureQEParameterHeaders(params, firstParamId, tool_options);
   firstParamId += QEmd.size();
+
+  SystMetaData MECmd =
+      ConfigureMECParameterHeaders(params, firstParamId, tool_options);
+  firstParamId += MECmd.size();
 
   SystMetaData NCELmd =
       ConfigureNCELParameterHeaders(params, firstParamId, tool_options);
@@ -82,6 +86,7 @@ SystMetaData GENIEReWeight::BuildSystMetaData(ParameterSet const &params,
 
   // Don't extend inline to make firstParamId incrementing more clear.
   ExtendSystMetaData(QEmd, DISmd);
+  ExtendSystMetaData(QEmd, MECmd);
   ExtendSystMetaData(QEmd, NCELmd);
   ExtendSystMetaData(QEmd, RESmd);
   ExtendSystMetaData(QEmd, COHmd);
@@ -109,7 +114,7 @@ void GENIEReWeight::extend_ResponseToGENIEParameters(
 }
 
 bool GENIEReWeight::SetupResponseCalculator(
-    fhicl::ParameterSet const &tool_options) {
+    fhiclsimple::ParameterSet const &tool_options) {
 
   std::cout << "[INFO]: Setting up GENIE ReWeight instances..." << std::endl;
 
@@ -155,6 +160,9 @@ bool GENIEReWeight::SetupResponseCalculator(
 
   extend_ResponseToGENIEParameters(
       ConfigureQEWeightEngine(GetSystMetaData(), tool_options));
+
+  extend_ResponseToGENIEParameters(
+      ConfigureMECWeightEngine(GetSystMetaData(), tool_options));
 
   extend_ResponseToGENIEParameters(
       ConfigureNCELWeightEngine(GetSystMetaData(), tool_options));

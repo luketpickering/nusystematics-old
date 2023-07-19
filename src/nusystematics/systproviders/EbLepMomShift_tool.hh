@@ -21,12 +21,12 @@ class EbLepMomShift : public nusyst::IGENIESystProvider_tool {
   };
 
 public:
-  explicit EbLepMomShift(fhicl::ParameterSet const &);
+  explicit EbLepMomShift(fhiclsimple::ParameterSet const &);
 
-  bool SetupResponseCalculator(fhicl::ParameterSet const &);
-  fhicl::ParameterSet GetExtraToolOptions() { return tool_options; }
+  bool SetupResponseCalculator(fhiclsimple::ParameterSet const &);
+  fhiclsimple::ParameterSet GetExtraToolOptions() { return tool_options; }
 
-  systtools::SystMetaData BuildSystMetaData(fhicl::ParameterSet const &,
+  systtools::SystMetaData BuildSystMetaData(fhiclsimple::ParameterSet const &,
                                             systtools::paramId_t);
 
   systtools::event_unit_response_t GetEventResponse(genie::EventRecord const &);
@@ -36,7 +36,7 @@ public:
   ~EbLepMomShift();
 
 private:
-  fhicl::ParameterSet tool_options;
+  fhiclsimple::ParameterSet tool_options;
 
   size_t ResponseParameterIdx;
 

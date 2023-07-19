@@ -8,12 +8,12 @@
 using namespace nusyst;
 using namespace systtools;
 
-EbLepMomShift::EbLepMomShift(fhicl::ParameterSet const &params)
+EbLepMomShift::EbLepMomShift(fhiclsimple::ParameterSet const &params)
     : IGENIESystProvider_tool(params),
       ResponseParameterIdx(systtools::kParamUnhandled<size_t>),
       valid_file(nullptr), valid_tree(nullptr) {}
 
-SystMetaData EbLepMomShift::BuildSystMetaData(fhicl::ParameterSet const &ps,
+SystMetaData EbLepMomShift::BuildSystMetaData(fhiclsimple::ParameterSet const &ps,
                                               paramId_t firstId) {
 
   SystMetaData smd;
@@ -36,8 +36,8 @@ SystMetaData EbLepMomShift::BuildSystMetaData(fhicl::ParameterSet const &ps,
            "nusystematics/responsecalculators/"
            "TemplateResponseCalculatorBase.hh for the layout.";
   }
-  fhicl::ParameterSet templateManifest =
-      ps.get<fhicl::ParameterSet>("EbLepMomShift_Template_input_manifest");
+  fhiclsimple::ParameterSet templateManifest =
+      ps.get<fhiclsimple::ParameterSet>("EbLepMomShift_Template_input_manifest");
   tool_options.put("EbLepMomShift_Template_input_manifest", templateManifest);
 
   tool_options.put("fill_valid_tree", ps.get<bool>("fill_valid_tree", false));
@@ -46,7 +46,7 @@ SystMetaData EbLepMomShift::BuildSystMetaData(fhicl::ParameterSet const &ps,
 }
 
 bool EbLepMomShift::SetupResponseCalculator(
-    fhicl::ParameterSet const &tool_options) {
+    fhiclsimple::ParameterSet const &tool_options) {
 
   SystMetaData const &md = GetSystMetaData();
 
@@ -66,8 +66,8 @@ bool EbLepMomShift::SetupResponseCalculator(
            "please report to the maintiner.";
   }
 
-  fhicl::ParameterSet const &templateManifest =
-      tool_options.get<fhicl::ParameterSet>(
+  fhiclsimple::ParameterSet const &templateManifest =
+      tool_options.get<fhiclsimple::ParameterSet>(
           "EbLepMomShift_Template_input_manifest");
 
   ResponseParameterIdx = GetParamIndex(md, "EbFSLepMomShift");

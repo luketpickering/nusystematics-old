@@ -9,7 +9,7 @@
 
 #include "systematicstools/utility/ParameterAndProviderConfigurationUtility.hh"
 
-#include "fhiclcpp/make_ParameterSet.h"
+#include "fhiclcppsimple/make_ParameterSet.h"
 
 #include "Framework/EventGen/EventRecord.h"
 
@@ -38,16 +38,26 @@ private:
   std::string config_file;
   std::vector<std::unique_ptr<IGENIESystProvider_tool>> syst_providers;
 
-  void LoadProvidersAndHeaders(fhicl::ParameterSet const &ps) {
+public:
+  response_helper() : NEvsProcessed(0), ProfilerRate(0) {}
+  response_helper(std::string const &fhicl_config_filename) : NEvsProcessed(0) {
+    LoadConfiguration(fhicl_config_filename);
+  }
+
+  std::vector<std::unique_ptr<IGENIESystProvider_tool>>& GetSystProvider(){
+    return syst_providers;
+  };
+
+  void LoadProvidersAndHeaders(fhiclsimple::ParameterSet const &ps) {
     syst_providers = systtools::ConfigureISystProvidersFromParameterHeaders<
         IGENIESystProvider_tool>(ps, make_instance);
-
+    
     if (!syst_providers.size()) {
       throw response_helper_found_no_parameters()
           << "[ERROR]: Expected to load some systematic providers from input: "
           << std::quoted(config_file);
     }
-
+    
     systtools::param_header_map_t configuredParameterHeaders =
         systtools::BuildParameterHeaders(syst_providers);
     if (!configuredParameterHeaders.size()) {
@@ -55,22 +65,16 @@ private:
           << "[ERROR]: Expected systematric providers loaded from input: "
           << std::quoted(config_file) << " to provide some parameter headers.";
     }
-
+    
     SetHeaders(configuredParameterHeaders);
-  }
-
-public:
-  response_helper() : NEvsProcessed(0), ProfilerRate(0) {}
-  response_helper(std::string const &fhicl_config_filename) : NEvsProcessed(0) {
-    LoadConfiguration(fhicl_config_filename);
   }
 
   void LoadConfiguration(std::string const &fhicl_config_filename) {
     config_file = fhicl_config_filename;
 
-    fhicl::ParameterSet ps = fhicl::make_ParameterSet(config_file);
+    fhiclsimple::ParameterSet ps = fhiclsimple::make_ParameterSet(config_file);
 
-    LoadProvidersAndHeaders(ps.get<fhicl::ParameterSet>(
+    LoadProvidersAndHeaders(ps.get<fhiclsimple::ParameterSet>(
         "generated_systematic_provider_configuration"));
 
     ProfilerRate = ps.get<size_t>("ProfileRate", 0);

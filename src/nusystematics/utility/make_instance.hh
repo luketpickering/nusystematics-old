@@ -12,7 +12,7 @@
 #include "nusystematics/systproviders/MiscInteractionSysts_tool.hh"
 #include "nusystematics/systproviders/NOvAStyleNonResPionNorm_tool.hh"
 
-#include "fhiclcpp/ParameterSet.h"
+#include "fhiclcppsimple/ParameterSet.h"
 
 #include <memory>
 
@@ -21,7 +21,7 @@ namespace nusyst {
 NEW_SYSTTOOLS_EXCEPT(unknown_nusyst_systprovider);
 
 inline std::unique_ptr<IGENIESystProvider_tool>
-make_instance(fhicl::ParameterSet const &paramset) {
+make_instance(fhiclsimple::ParameterSet const &paramset) {
   std::string tool_type = paramset.get<std::string>("tool_type");
 
   if (tool_type == "GENIEReWeight") {

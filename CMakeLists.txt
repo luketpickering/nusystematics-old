@@ -51,7 +51,7 @@ endif()
 ###### Compiler set up
 add_library(nusystematics_dependencies INTERFACE)
 target_link_libraries(nusystematics_dependencies INTERFACE 
-  fhiclcpp::includes)
+  fhiclcppsimple::includes)
 target_include_directories(nusystematics_dependencies INTERFACE 
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
   $<INSTALL_INTERFACE:include> )

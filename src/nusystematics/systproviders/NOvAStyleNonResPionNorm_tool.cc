@@ -5,12 +5,12 @@
 using namespace nusyst;
 
 NOvAStyleNonResPionNorm::NOvAStyleNonResPionNorm(
-    fhicl::ParameterSet const &params)
+    fhiclsimple::ParameterSet const &params)
     : IGENIESystProvider_tool(params), valid_file(nullptr),
       valid_tree(nullptr) {}
 
 systtools::SystMetaData
-NOvAStyleNonResPionNorm::BuildSystMetaData(fhicl::ParameterSet const &ps,
+NOvAStyleNonResPionNorm::BuildSystMetaData(fhiclsimple::ParameterSet const &ps,
                                            systtools::paramId_t firstId) {
 
   systtools::SystMetaData smd;
@@ -51,7 +51,7 @@ NOvAStyleNonResPionNorm::BuildSystMetaData(fhicl::ParameterSet const &ps,
 }
 
 bool NOvAStyleNonResPionNorm::SetupResponseCalculator(
-    fhicl::ParameterSet const &tool_options) {
+    fhiclsimple::ParameterSet const &tool_options) {
 
   systtools::SystMetaData const &md = GetSystMetaData();
 

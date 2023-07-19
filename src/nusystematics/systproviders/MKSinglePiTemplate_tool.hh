@@ -25,12 +25,12 @@ class MKSinglePiTemplate : public nusyst::IGENIESystProvider_tool {
   std::map<genie::SppChannel_t, TemplateHelper> ChannelParameterMapping;
 
 public:
-  explicit MKSinglePiTemplate(fhicl::ParameterSet const &);
+  explicit MKSinglePiTemplate(fhiclsimple::ParameterSet const &);
 
-  bool SetupResponseCalculator(fhicl::ParameterSet const &);
-  fhicl::ParameterSet GetExtraToolOptions() { return tool_options; }
+  bool SetupResponseCalculator(fhiclsimple::ParameterSet const &);
+  fhiclsimple::ParameterSet GetExtraToolOptions() { return tool_options; }
 
-  systtools::SystMetaData BuildSystMetaData(fhicl::ParameterSet const &,
+  systtools::SystMetaData BuildSystMetaData(fhiclsimple::ParameterSet const &,
                                             systtools::paramId_t);
 
   systtools::event_unit_response_t GetEventResponse(genie::EventRecord const &);
@@ -44,7 +44,7 @@ private:
   bool use_Q2W_templates;
   bool Q2_or_q0_is_x;
 
-  fhicl::ParameterSet tool_options;
+  fhiclsimple::ParameterSet tool_options;
 
   void InitValidTree();
 
