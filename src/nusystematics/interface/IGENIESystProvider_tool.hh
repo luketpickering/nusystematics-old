@@ -97,20 +97,6 @@ public:
 
   };
 
-  /// Calculates configured response for a given vector of GHep record
-  std::unique_ptr<systtools::EventResponse>
-  GetEventResponses(std::vector<std::unique_ptr<genie::EventRecord>> const &gheps){
-
-    std::unique_ptr<systtools::EventResponse> er =
-        std::make_unique<systtools::EventResponse>();
-
-    for (size_t eu_it = 0; eu_it < gheps.size(); ++eu_it) {
-      er->push_back(GetEventResponse(*gheps[eu_it]));
-    }
-    return er;
-
-  };
-
   systtools::event_unit_response_w_cv_t
   GetEventVariationAndCVResponse(genie::EventRecord const &GenieGHep) {
     systtools::event_unit_response_w_cv_t responseandCV;
