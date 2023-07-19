@@ -81,11 +81,11 @@ public:
 
   /// Calculates configured response for a given GHep record
   virtual systtools::event_unit_response_t
-  GetEventResponses(genie::EventRecord const &) = 0;
+  GetEventResponse(genie::EventRecord const &) = 0;
 
   /// Calculates configured response for a given vector of GHep record
   virtual std::unique_ptr<systtools::EventResponse>
-  GetEventResponse(std::vector<std::unique_ptr<genie::EventRecord>> const &gheps){
+  GetEventResponses(std::vector<std::unique_ptr<genie::EventRecord>> const &gheps){
 
     std::unique_ptr<systtools::EventResponse> er =
         std::make_unique<systtools::EventResponse>();
