@@ -84,7 +84,7 @@ public:
   GetEventResponse(genie::EventRecord const &) = 0;
 
   /// Calculates configured response for a given vector of GHep record
-  virtual std::unique_ptr<systtools::EventResponse>
+  std::unique_ptr<systtools::EventResponse>
   GetEventResponses(std::vector<std::unique_ptr<genie::EventRecord>> const &gheps){
 
     std::unique_ptr<systtools::EventResponse> er =
