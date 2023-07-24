@@ -8,18 +8,18 @@
 using namespace nusyst;
 using namespace systtools;
 
-EbLepMomShift::EbLepMomShift(fhiclsimple::ParameterSet const &params)
+EbLepMomShift::EbLepMomShift(fhicl::ParameterSet const &params)
     : IGENIESystProvider_tool(params),
       ResponseParameterIdx(systtools::kParamUnhandled<size_t>),
       valid_file(nullptr), valid_tree(nullptr) {}
 
-SystMetaData EbLepMomShift::BuildSystMetaData(fhiclsimple::ParameterSet const &ps,
+SystMetaData EbLepMomShift::BuildSystMetaData(fhicl::ParameterSet const &ps,
                                               paramId_t firstId) {
 
   SystMetaData smd;
 
   SystParamHeader phdr;
-  if (ParseFHiCLSimpleToolConfigurationParameter(ps, "EbFSLepMomShift", phdr,
+  if (ParseFhiclToolConfigurationParameter(ps, "EbFSLepMomShift", phdr,
                                                  firstId)) {
     phdr.systParamId = firstId++;
     phdr.isWeightSystematicVariation = false;
@@ -36,8 +36,8 @@ SystMetaData EbLepMomShift::BuildSystMetaData(fhiclsimple::ParameterSet const &p
            "nusystematics/responsecalculators/"
            "TemplateResponseCalculatorBase.hh for the layout.";
   }
-  fhiclsimple::ParameterSet templateManifest =
-      ps.get<fhiclsimple::ParameterSet>("EbLepMomShift_Template_input_manifest");
+  fhicl::ParameterSet templateManifest =
+      ps.get<fhicl::ParameterSet>("EbLepMomShift_Template_input_manifest");
   tool_options.put("EbLepMomShift_Template_input_manifest", templateManifest);
 
   tool_options.put("fill_valid_tree", ps.get<bool>("fill_valid_tree", false));
@@ -46,7 +46,7 @@ SystMetaData EbLepMomShift::BuildSystMetaData(fhiclsimple::ParameterSet const &p
 }
 
 bool EbLepMomShift::SetupResponseCalculator(
-    fhiclsimple::ParameterSet const &tool_options) {
+    fhicl::ParameterSet const &tool_options) {
 
   SystMetaData const &md = GetSystMetaData();
 
@@ -66,8 +66,8 @@ bool EbLepMomShift::SetupResponseCalculator(
            "please report to the maintiner.";
   }
 
-  fhiclsimple::ParameterSet const &templateManifest =
-      tool_options.get<fhiclsimple::ParameterSet>(
+  fhicl::ParameterSet const &templateManifest =
+      tool_options.get<fhicl::ParameterSet>(
           "EbLepMomShift_Template_input_manifest");
 
   ResponseParameterIdx = GetParamIndex(md, "EbFSLepMomShift");

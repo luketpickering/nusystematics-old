@@ -5,12 +5,12 @@
 using namespace nusyst;
 
 NOvAStyleNonResPionNorm::NOvAStyleNonResPionNorm(
-    fhiclsimple::ParameterSet const &params)
+    fhicl::ParameterSet const &params)
     : IGENIESystProvider_tool(params), valid_file(nullptr),
       valid_tree(nullptr) {}
 
 systtools::SystMetaData
-NOvAStyleNonResPionNorm::BuildSystMetaData(fhiclsimple::ParameterSet const &ps,
+NOvAStyleNonResPionNorm::BuildSystMetaData(fhicl::ParameterSet const &ps,
                                            systtools::paramId_t firstId) {
 
   systtools::SystMetaData smd;
@@ -23,7 +23,7 @@ NOvAStyleNonResPionNorm::BuildSystMetaData(fhiclsimple::ParameterSet const &ps,
               BuildNRPiChannel(IsNeutrino, IsCC, TargetNucleon, NPi);
 
           systtools::SystParamHeader ch_param;
-          if (ParseFHiCLSimpleToolConfigurationParameter(
+          if (ParseFhiclToolConfigurationParameter(
                   ps, GetNRPiChannelName(chan), ch_param, firstId)) {
             ch_param.systParamId = firstId++;
             smd.push_back(ch_param);
@@ -51,7 +51,7 @@ NOvAStyleNonResPionNorm::BuildSystMetaData(fhiclsimple::ParameterSet const &ps,
 }
 
 bool NOvAStyleNonResPionNorm::SetupResponseCalculator(
-    fhiclsimple::ParameterSet const &tool_options) {
+    fhicl::ParameterSet const &tool_options) {
 
   systtools::SystMetaData const &md = GetSystMetaData();
 

@@ -11,7 +11,7 @@
 
 using namespace systtools;
 using namespace nusyst;
-using namespace fhiclsimple;
+using namespace fhicl;
 
 // #define DEBUG_MKSINGLEPI
 
@@ -25,14 +25,14 @@ SystMetaData FSILikeEAvailSmearing::BuildSystMetaData(ParameterSet const &cfg,
   SystMetaData smd;
 
   systtools::SystParamHeader phdr;
-  if (ParseFHiCLSimpleToolConfigurationParameter(cfg, "FSILikeEAvailSmearing",
+  if (ParseFhiclToolConfigurationParameter(cfg, "FSILikeEAvailSmearing",
                                                  phdr, firstId)) {
     phdr.systParamId = firstId++;
     smd.push_back(phdr);
   }
 
-  fhiclsimple::ParameterSet templateManifest =
-      cfg.get<fhiclsimple::ParameterSet>("FSILikeEAvailSmearing_input_manifest");
+  fhicl::ParameterSet templateManifest =
+      cfg.get<fhicl::ParameterSet>("FSILikeEAvailSmearing_input_manifest");
 
   if (!cfg.has_key("FSILikeEAvailSmearing_input_manifest") ||
       !cfg.is_key_to_table("FSILikeEAvailSmearing_input_manifest")) {
@@ -85,7 +85,7 @@ struct channel_id {
 } // namespace
 
 bool FSILikeEAvailSmearing::SetupResponseCalculator(
-    fhiclsimple::ParameterSet const &tool_options) {
+    fhicl::ParameterSet const &tool_options) {
 
   genie::Messenger::Instance()->SetPrioritiesFromXmlFile(
       "Messenger_whisper.xml");
@@ -108,8 +108,8 @@ bool FSILikeEAvailSmearing::SetupResponseCalculator(
            "please report to the maintiner.";
   }
 
-  fhiclsimple::ParameterSet const &templateManifest =
-      tool_options.get<fhiclsimple::ParameterSet>(
+  fhicl::ParameterSet const &templateManifest =
+      tool_options.get<fhicl::ParameterSet>(
           "FSILikeEAvailSmearing_input_manifest");
 
   ResponseParameterIdx =
@@ -133,7 +133,7 @@ bool FSILikeEAvailSmearing::SetupResponseCalculator(
     TemplateHelper th;
     th.Template = std::make_unique<FSILikeEAvailSmearing_ReWeight>();
     th.Template->LoadInputHistograms(
-        templateManifest.get<fhiclsimple::ParameterSet>(ch.name));
+        templateManifest.get<fhicl::ParameterSet>(ch.name));
     th.ZeroIsValid = th.Template->IsValidVariation(0);
 
     ChannelParameterMapping.emplace(ch.channel, std::move(th));

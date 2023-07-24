@@ -16,7 +16,7 @@ using namespace systtools;
 
 // #define BERPAWEIGHT_DEBUG
 
-BeRPAWeight::BeRPAWeight(fhiclsimple::ParameterSet const &params)
+BeRPAWeight::BeRPAWeight(fhicl::ParameterSet const &params)
     : IGENIESystProvider_tool(params),
       pidx_BeRPA_Response(kParamUnhandled<size_t>),
       pidx_BeRPA_A(kParamUnhandled<size_t>),
@@ -25,7 +25,7 @@ BeRPAWeight::BeRPAWeight(fhiclsimple::ParameterSet const &params)
       pidx_BeRPA_E(kParamUnhandled<size_t>), valid_file(nullptr),
       valid_tree(nullptr) {}
 
-SystMetaData BeRPAWeight::BuildSystMetaData(fhiclsimple::ParameterSet const &ps,
+SystMetaData BeRPAWeight::BuildSystMetaData(fhicl::ParameterSet const &ps,
                                             paramId_t firstId) {
 
   SystMetaData smd;
@@ -44,7 +44,7 @@ SystMetaData BeRPAWeight::BuildSystMetaData(fhiclsimple::ParameterSet const &ps,
   for (std::string const &pname :
        {"BeRPA_A", "BeRPA_B", "BeRPA_D", "BeRPA_E"}) {
     SystParamHeader phdr;
-    if (ParseFHiCLSimpleToolConfigurationParameter(ps, pname, phdr, firstId)) {
+    if (ParseFhiclToolConfigurationParameter(ps, pname, phdr, firstId)) {
       phdr.systParamId = firstId++;
       if (!ignore_parameter_dependence) {
         dependentParamNames.push_back(phdr.prettyName);
@@ -81,7 +81,7 @@ SystMetaData BeRPAWeight::BuildSystMetaData(fhiclsimple::ParameterSet const &ps,
 }
 
 bool BeRPAWeight::SetupResponseCalculator(
-    fhiclsimple::ParameterSet const &tool_options) {
+    fhicl::ParameterSet const &tool_options) {
 
   ignore_parameter_dependence =
       tool_options.get<bool>("ignore_parameter_dependence", false);

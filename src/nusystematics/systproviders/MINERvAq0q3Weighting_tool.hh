@@ -47,13 +47,13 @@ class MINERvAq0q3Weighting : public nusyst::IGENIESystProvider_tool {
   std::map<param_t, size_t> ConfiguredParameters;
 
 public:
-  explicit MINERvAq0q3Weighting(fhiclsimple::ParameterSet const &);
+  explicit MINERvAq0q3Weighting(fhicl::ParameterSet const &);
 
-  bool SetupResponseCalculator(fhiclsimple::ParameterSet const &);
+  bool SetupResponseCalculator(fhicl::ParameterSet const &);
 
-  fhiclsimple::ParameterSet GetExtraToolOptions() { return tool_options; }
+  fhicl::ParameterSet GetExtraToolOptions() { return tool_options; }
 
-  systtools::SystMetaData BuildSystMetaData(fhiclsimple::ParameterSet const &,
+  systtools::SystMetaData BuildSystMetaData(fhicl::ParameterSet const &,
                                             systtools::paramId_t);
 
   double GetMINERvARPATuneWeight(double val, double q0, double q3);
@@ -67,7 +67,7 @@ public:
   ~MINERvAq0q3Weighting();
 
 private:
-  fhiclsimple::ParameterSet tool_options;
+  fhicl::ParameterSet tool_options;
   std::pair<double, double> MEC_LimitWeights;
 
   void InitValidTree();

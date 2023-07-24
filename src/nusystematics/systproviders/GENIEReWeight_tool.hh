@@ -19,13 +19,13 @@ class GENIEReWeight : public nusyst::IGENIESystProvider_tool {
 public:
   NEW_SYSTTOOLS_EXCEPT(invalid_engine_state);
 
-  explicit GENIEReWeight(fhiclsimple::ParameterSet const &);
+  explicit GENIEReWeight(fhicl::ParameterSet const &);
 
-  systtools::SystMetaData BuildSystMetaData(fhiclsimple::ParameterSet const &,
+  systtools::SystMetaData BuildSystMetaData(fhicl::ParameterSet const &,
                                             systtools::paramId_t);
-  fhiclsimple::ParameterSet GetExtraToolOptions() { return tool_options; }
+  fhicl::ParameterSet GetExtraToolOptions() { return tool_options; }
 
-  bool SetupResponseCalculator(fhiclsimple::ParameterSet const &);
+  bool SetupResponseCalculator(fhicl::ParameterSet const &);
 
   systtools::event_unit_response_t GetEventResponse(genie::EventRecord const &);
 
@@ -52,7 +52,7 @@ private:
   void extend_ResponseToGENIEParameters(
       std::vector<nusyst::GENIEResponseParameter> &&);
 
-  fhiclsimple::ParameterSet tool_options;
+  fhicl::ParameterSet tool_options;
 
   void InitValidTree();
 
