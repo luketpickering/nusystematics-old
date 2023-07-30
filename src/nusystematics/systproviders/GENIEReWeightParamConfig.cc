@@ -238,13 +238,28 @@ SystMetaData ConfigureQEParameterHeaders(fhiclsimple::ParameterSet const &cfg,
 
   // These are all independent and based upon the channel that was generated
   SystMetaData VecFFCCQEmd = ConfigureSetOfIndependentParameters(
-      cfg, firstParamId, {kXSecTwkDial_VecFFCCQEshape});
+      cfg, firstParamId,
+      {kXSecTwkDial_VecFFCCQEshape});
+  firstParamId += VecFFCCQEmd.size();
   ExtendSystMetaData(QEmd, std::move(VecFFCCQEmd));
+
+  SystMetaData RPA_CCQEmd = ConfigureSetOfIndependentParameters(
+      cfg, firstParamId,
+      {kXSecTwkDial_RPA_CCQE});
+  firstParamId += RPA_CCQEmd.size();
+  ExtendSystMetaData(QEmd, std::move(RPA_CCQEmd));
+
+  SystMetaData CoulombCCQEmd = ConfigureSetOfIndependentParameters(
+      cfg, firstParamId,
+      {kXSecTwkDial_CoulombCCQE});
+  firstParamId += CoulombCCQEmd.size();
+  ExtendSystMetaData(QEmd, std::move(CoulombCCQEmd));
 
   bool AxFFCCQEDipoleToZExp =
       cfg.get<bool>("AxFFCCQEDipoleToZExp", false) || IsZExpReWeight;
 
-  tool_options.put<bool>("AxFFCCQEDipoleToZExp", AxFFCCQEDipoleToZExp);
+  tool_options.put<bool>("AxFFCCQEDipoleToZExp",AxFFCCQEDipoleToZExp);
+
 
   return QEmd;
 }
@@ -349,7 +364,8 @@ SystMetaData ConfigureRESParameterHeaders(fhiclsimple::ParameterSet const &cfg,
        kXSecTwkDial_RvbarnNC2pi,
 
        kRDcyTwkDial_BR1gamma, kRDcyTwkDial_BR1eta,
-       kRDcyTwkDial_Theta_Delta2Npi});
+       kRDcyTwkDial_Theta_Delta2Npi,
+       kRDcyTwkDial_Theta_Delta2NRad});
   ExtendSystMetaData(RESmd, std::move(RESOther));
 
   return RESmd;
@@ -360,7 +376,7 @@ SystMetaData ConfigureCOHParameterHeaders(fhiclsimple::ParameterSet const &cfg,
                                           fhiclsimple::ParameterSet &tool_options) {
   return ConfigureSetOfDependentParameters(
       cfg, firstParamId, tool_options, "COHVariationResponse",
-      {kXSecTwkDial_MaCOHpi, kXSecTwkDial_R0COHpi});
+      {kXSecTwkDial_MaCOHpi, kXSecTwkDial_R0COHpi, kXSecTwkDial_NormCCCOHpi, kXSecTwkDial_NormNCCOHpi});
 }
 
 SystMetaData ConfigureDISParameterHeaders(fhiclsimple::ParameterSet const &cfg,

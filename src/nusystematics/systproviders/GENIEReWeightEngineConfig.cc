@@ -17,6 +17,7 @@
 #include "RwCalculators/GReWeightNuXSecNCEL.h"
 #include "RwCalculators/GReWeightNuXSecNCRES.h"
 #include "RwCalculators/GReWeightResonanceDecay.h"
+#include "RwCalculators/GReWeightDeltaradAngle.h"
 
 #include <functional>
 
@@ -261,6 +262,14 @@ ConfigureQEWeightEngine(SystMetaData const &QEmd,
       QEmd, {kXSecTwkDial_VecFFCCQEshape}, "xsec_ccqe_vecFF",
       []() { return new GReWeightNuXSecCCQEvec; }, UseFullHERG, param_map);
 
+  AddIndependentParameters(
+      QEmd, {kXSecTwkDial_RPA_CCQE}, "xsec_ccqe_rpa",
+      []() { return new GReWeightNuXSecCCQE; }, UseFullHERG, param_map);
+
+  AddIndependentParameters(
+      QEmd, {kXSecTwkDial_CoulombCCQE}, "xsec_ccqe_coulomb",
+      []() { return new GReWeightNuXSecCCQE; }, UseFullHERG, param_map);
+
   return param_map;
 }
 
@@ -375,12 +384,19 @@ ConfigureRESWeightEngine(SystMetaData const &RESmd,
       "xsec_NonResBkg", []() { return new GReWeightNonResonanceBkg(); },
       UseFullHERG, param_map);
 
-  AddIndependentParameters(
-      RESmd,
-      {{kRDcyTwkDial_BR1gamma, kRDcyTwkDial_BR1eta,
-        kRDcyTwkDial_Theta_Delta2Npi}},
-      "xsec_ResDecay", []() { return new GReWeightResonanceDecay(); },
-      UseFullHERG, param_map);
+  AddIndependentParameters(RESmd,
+                           {{kRDcyTwkDial_BR1gamma, kRDcyTwkDial_BR1eta,
+                             kRDcyTwkDial_Theta_Delta2Npi}},
+                           "xsec_ResDecay",
+                           []() { return new GReWeightResonanceDecay(); },
+                           UseFullHERG, param_map);
+
+  AddIndependentParameters(RESmd,
+                           {{kRDcyTwkDial_Theta_Delta2NRad}},
+                           "xsec_DeltaRad",
+                           []() { return new GReWeightDeltaradAngle(); },
+                           UseFullHERG, param_map);
+
 
   return param_map;
 }
@@ -395,7 +411,7 @@ ConfigureCOHWeightEngine(SystMetaData const &COHmd,
 
   AddResponseAndDependentDials(
       COHmd, "COHVariationResponse",
-      {kXSecTwkDial_MaCOHpi, kXSecTwkDial_R0COHpi}, "xsec_COH",
+      {kXSecTwkDial_MaCOHpi, kXSecTwkDial_R0COHpi, kXSecTwkDial_NormCCCOHpi, kXSecTwkDial_NormNCCOHpi}, "xsec_COH",
       []() { return new GReWeightNuXSecCOH; }, UseFullHERG, param_map);
 
   return param_map;
