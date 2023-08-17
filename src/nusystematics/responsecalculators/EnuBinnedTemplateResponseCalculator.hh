@@ -64,7 +64,7 @@ private:
   ///    ] # optional if all of input_file_pattern, input_hist_pattern,
   ///      # e_uniform, and param_values are specified
   /// }
-  void LoadInputHistograms(fhiclsimple::ParameterSet const &ps) {
+  void LoadInputHistograms(fhicl::ParameterSet const &ps) {
     bool uniform_enu = false;
     bool consistent_param_values = false;
 
@@ -98,7 +98,7 @@ private:
       if (!consistent_param_values || !uniform_enu) {
         throw;
       }
-      std::vector<fhiclsimple::ParameterSet> value_descriptors;
+      std::vector<fhicl::ParameterSet> value_descriptors;
       for (size_t e_stop_ctr = 0; e_stop_ctr < (EnuBinning.size() - 1);
            ++e_stop_ctr) {
         std::pair<double, double> enu_range =
@@ -118,13 +118,13 @@ private:
               input_hist_pattern_stop, "%V",
               StringifyNumberToOneDP(param_values[pval_ctr]));
 
-          fhiclsimple::ParameterSet value_descriptor;
+          fhicl::ParameterSet value_descriptor;
           value_descriptor.put("value", param_values[pval_ctr]);
           value_descriptor.put("input_file", input_file);
           value_descriptor.put("input_hist", input_hist);
           value_descriptors.push_back(std::move(value_descriptor));
         }
-        fhiclsimple::ParameterSet estop_descriptor;
+        fhicl::ParameterSet estop_descriptor;
         estop_descriptor.put("inputs", value_descriptors);
         EnuResponses.emplace_back();
         EnuResponses.back().LoadInputHistograms(estop_descriptor);
@@ -133,10 +133,10 @@ private:
     }
 
     size_t e_stop_ctr = 0;
-    for (fhiclsimple::ParameterSet const &e_stop :
-         ps.get<std::vector<fhiclsimple::ParameterSet>>("e_stops")) {
+    for (fhicl::ParameterSet const &e_stop :
+         ps.get<std::vector<fhicl::ParameterSet>>("e_stops")) {
 
-      fhiclsimple::ParameterSet estop_descriptor;
+      fhicl::ParameterSet estop_descriptor;
       std::pair<double, double> enu_range;
 
       if (!e_stop.has_key("enu_range") && uniform_enu) {
@@ -177,10 +177,10 @@ private:
         continue; // next_estop
       }
 
-      std::vector<fhiclsimple::ParameterSet> value_descriptors;
+      std::vector<fhicl::ParameterSet> value_descriptors;
       size_t param_value_it = 0;
-      for (fhiclsimple::ParameterSet const &param_value :
-           e_stop.get<std::vector<fhiclsimple::ParameterSet>>("param_values")) {
+      for (fhicl::ParameterSet const &param_value :
+           e_stop.get<std::vector<fhicl::ParameterSet>>("param_values")) {
         double value;
         if (!param_value.has_key("value") && consistent_param_values) {
           value = param_values[param_value_it];
@@ -198,7 +198,7 @@ private:
             systtools::str_replace(input_hist_pattern_stop, "%V",
                                    StringifyNumberToOneDP(value)));
 
-        fhiclsimple::ParameterSet value_descriptor;
+        fhicl::ParameterSet value_descriptor;
         value_descriptor.put("value", value);
         value_descriptor.put("input_file", input_file);
         value_descriptor.put("input_hist", input_hist);
@@ -227,7 +227,7 @@ private:
   }
 
 public:
-  EnuBinnedTemplateResponseCalculator(fhiclsimple::ParameterSet const &ps) {
+  EnuBinnedTemplateResponseCalculator(fhicl::ParameterSet const &ps) {
     LoadInputHistograms(ps);
   };
 

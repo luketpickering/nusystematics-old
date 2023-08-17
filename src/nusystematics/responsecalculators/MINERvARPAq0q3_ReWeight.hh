@@ -27,7 +27,7 @@ class MINERvARPAq0q3_ReWeight
 public:
   enum class RPATweak_t { kCV = 0, kPlus1 = 1, kMinus1 = -1 };
 
-  MINERvARPAq0q3_ReWeight(fhiclsimple::ParameterSet const &InputManifest) {
+  MINERvARPAq0q3_ReWeight(fhicl::ParameterSet const &InputManifest) {
     LoadInputHistograms(InputManifest);
   }
 

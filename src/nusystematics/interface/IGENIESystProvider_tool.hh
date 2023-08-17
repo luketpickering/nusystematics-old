@@ -2,7 +2,7 @@
 
 #include "systematicstools/interface/ISystProviderTool.hh"
 
-#include "fhiclcppsimple/ParameterSet.h"
+#include "fhiclcpp/ParameterSet.h"
 
 // GENIE
 #include "Framework/EventGen/EventRecord.h"
@@ -68,7 +68,7 @@ protected:
   }
 
 public:
-  IGENIESystProvider_tool(fhiclsimple::ParameterSet const &ps)
+  IGENIESystProvider_tool(fhicl::ParameterSet const &ps)
       : ISystProviderTool(ps), fGENIEModuleLabel(ps.get<std::string>(
                                    "genie_module_label", "generator")) {
 

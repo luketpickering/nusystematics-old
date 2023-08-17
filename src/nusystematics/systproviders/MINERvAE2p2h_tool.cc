@@ -12,7 +12,7 @@ using namespace systtools;
 
 // #define MINERVAE2p2h_DEBUG
 
-MINERvAE2p2h::MINERvAE2p2h(fhiclsimple::ParameterSet const &params)
+MINERvAE2p2h::MINERvAE2p2h(fhicl::ParameterSet const &params)
     : IGENIESystProvider_tool(params),
       pidx_E2p2hResponse_nu(kParamUnhandled<size_t>),
       pidx_E2p2hResponse_nubar(kParamUnhandled<size_t>),
@@ -22,7 +22,7 @@ MINERvAE2p2h::MINERvAE2p2h(fhiclsimple::ParameterSet const &params)
       pidx_E2p2hB_nubar(kParamUnhandled<size_t>), valid_file(nullptr),
       valid_tree(nullptr) {}
 
-SystMetaData MINERvAE2p2h::BuildSystMetaData(fhiclsimple::ParameterSet const &ps,
+SystMetaData MINERvAE2p2h::BuildSystMetaData(fhicl::ParameterSet const &ps,
                                              paramId_t firstId) {
 
   SystMetaData smd;
@@ -41,7 +41,7 @@ SystMetaData MINERvAE2p2h::BuildSystMetaData(fhiclsimple::ParameterSet const &ps
     for (std::string const &p : {"E2p2h_A", "E2p2h_B"}) {
       std::string pname = p + "_" + nu;
       SystParamHeader phdr;
-      if (ParseFHiCLSimpleToolConfigurationParameter(ps, pname, phdr,
+      if (ParseFhiclToolConfigurationParameter(ps, pname, phdr,
                                                      firstId)) {
         phdr.systParamId = firstId++;
         if (!ignore_parameter_dependence) {
@@ -85,7 +85,7 @@ SystMetaData MINERvAE2p2h::BuildSystMetaData(fhiclsimple::ParameterSet const &ps
 }
 
 bool MINERvAE2p2h::SetupResponseCalculator(
-    fhiclsimple::ParameterSet const &tool_options) {
+    fhicl::ParameterSet const &tool_options) {
 
   SystMetaData const &md = GetSystMetaData();
 
