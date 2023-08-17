@@ -275,7 +275,7 @@ ConfigureQEWeightEngine(SystMetaData const &QEmd,
 
 std::vector<GENIEResponseParameter>
 ConfigureMECWeightEngine(SystMetaData const &MECmd,
-                        fhiclsimple::ParameterSet const &tool_options) {
+                        fhicl::ParameterSet const &tool_options) {
 
   std::vector<GENIEResponseParameter> param_map;
 

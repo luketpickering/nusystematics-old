@@ -131,6 +131,10 @@ public:
           break;
         }
       }
+
+
+/*
+//TODO
       // if we didn't find it, the CVResp stays as 1/0 depending on whether it
       // is a weight or not.
       for (size_t idx = 0; idx < NVars; ++idx) {
@@ -140,6 +144,7 @@ public:
           pr.responses[idx] -= CVResp;
         }
       }
+*/
 
       responseandCV.push_back({pr.pid, CVResp, pr.responses});
     } // end for parameter response

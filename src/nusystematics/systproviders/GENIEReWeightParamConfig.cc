@@ -264,9 +264,9 @@ SystMetaData ConfigureQEParameterHeaders(fhicl::ParameterSet const &cfg,
   return QEmd;
 }
 
-SystMetaData ConfigureMECParameterHeaders(fhiclsimple::ParameterSet const &cfg,
+SystMetaData ConfigureMECParameterHeaders(fhicl::ParameterSet const &cfg,
                                           paramId_t firstParamId,
-                                          fhiclsimple::ParameterSet &tool_options) {
+                                          fhicl::ParameterSet &tool_options) {
 
   return ConfigureSetOfIndependentParameters(
       cfg, firstParamId,

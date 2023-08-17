@@ -9,8 +9,6 @@
 
 #include "systematicstools/utility/ParameterAndProviderConfigurationUtility.hh"
 
-#include "fhiclcpp/make_ParameterSet.h"
-
 #include "Framework/EventGen/EventRecord.h"
 
 #include "TFile.h"
@@ -72,7 +70,7 @@ public:
   void LoadConfiguration(std::string const &fhicl_config_filename) {
     config_file = fhicl_config_filename;
 
-    fhicl::ParameterSet ps = fhicl::make_ParameterSet(config_file);
+    fhicl::ParameterSet ps = fhicl::ParameterSet::make(config_file);
 
     LoadProvidersAndHeaders(ps.get<fhicl::ParameterSet>(
         "generated_systematic_provider_configuration"));
