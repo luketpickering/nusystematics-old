@@ -12,7 +12,7 @@
 
 using namespace systtools;
 using namespace nusyst;
-using namespace fhiclsimple;
+using namespace fhicl;
 
 MINERvAq0q3Weighting::MINERvAq0q3Weighting(ParameterSet const &params)
     : IGENIESystProvider_tool(params), RPATemplateReweighter(nullptr),
@@ -42,8 +42,8 @@ SystMetaData MINERvAq0q3Weighting::BuildSystMetaData(ParameterSet const &cfg,
              "for the layout.";
     }
 
-    fhiclsimple::ParameterSet ps =
-        cfg.get<fhiclsimple::ParameterSet>("MINERvATune_RPA_input_manifest");
+    fhicl::ParameterSet ps =
+        cfg.get<fhicl::ParameterSet>("MINERvATune_RPA_input_manifest");
     tool_options.put("MINERvATune_RPA_input_manifest", ps);
 
     smd.push_back(param);
@@ -59,22 +59,22 @@ SystMetaData MINERvAq0q3Weighting::BuildSystMetaData(ParameterSet const &cfg,
 
     if (parameter_per_2p2h_universe) {
       systtools::SystParamHeader param_CV, param_NN, param_np, param_QE;
-      if (ParseFHiCLSimpleToolConfigurationParameter(
+      if (ParseFhiclToolConfigurationParameter(
               cfg, "Mnv2p2hGaussEnhancement_CV", param_CV, firstId)) {
         param_CV.systParamId = firstId++;
         smd.push_back(param_CV);
       }
-      if (ParseFHiCLSimpleToolConfigurationParameter(
+      if (ParseFhiclToolConfigurationParameter(
               cfg, "Mnv2p2hGaussEnhancement_NN", param_NN, firstId)) {
         param_NN.systParamId = firstId++;
         smd.push_back(param_NN);
       }
-      if (ParseFHiCLSimpleToolConfigurationParameter(
+      if (ParseFhiclToolConfigurationParameter(
               cfg, "Mnv2p2hGaussEnhancement_np", param_np, firstId)) {
         param_np.systParamId = firstId++;
         smd.push_back(param_np);
       }
-      if (ParseFHiCLSimpleToolConfigurationParameter(
+      if (ParseFhiclToolConfigurationParameter(
               cfg, "Mnv2p2hGaussEnhancement_QE", param_QE, firstId)) {
         param_QE.systParamId = firstId++;
         smd.push_back(param_QE);
@@ -82,7 +82,7 @@ SystMetaData MINERvAq0q3Weighting::BuildSystMetaData(ParameterSet const &cfg,
 
     } else {
       systtools::SystParamHeader param;
-      if (ParseFHiCLSimpleToolConfigurationParameter(
+      if (ParseFhiclToolConfigurationParameter(
               cfg, "Mnv2p2hGaussEnhancement", param, firstId)) {
         param.systParamId = firstId++;
       } else {
@@ -109,7 +109,7 @@ SystMetaData MINERvAq0q3Weighting::BuildSystMetaData(ParameterSet const &cfg,
 }
 
 bool MINERvAq0q3Weighting::SetupResponseCalculator(
-    fhiclsimple::ParameterSet const &tool_options) {
+    fhicl::ParameterSet const &tool_options) {
 
   if (HasParam(GetSystMetaData(), "MINERvATune_RPA")) {
     ConfiguredParameters[param_t::kMINERvARPA] =
@@ -126,7 +126,7 @@ bool MINERvAq0q3Weighting::SetupResponseCalculator(
     }
 
     RPATemplateReweighter = std::make_unique<MINERvARPAq0q3_ReWeight>(
-        tool_options.get<fhiclsimple::ParameterSet>(
+        tool_options.get<fhicl::ParameterSet>(
             "MINERvATune_RPA_input_manifest"));
   }
 

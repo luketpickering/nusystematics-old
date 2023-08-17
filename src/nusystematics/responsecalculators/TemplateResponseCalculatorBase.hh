@@ -7,7 +7,7 @@
 #include "systematicstools/utility/ROOTUtility.hh"
 #include "systematicstools/utility/exceptions.hh"
 
-#include "fhiclcppsimple/ParameterSet.h"
+#include "fhiclcpp/ParameterSet.h"
 
 #include "TH1.h"
 #include "TH2.h"
@@ -56,7 +56,7 @@ public:
   ///      }
   ///    ]
   ///  }
-  void LoadInputHistograms(fhiclsimple::ParameterSet const &ps);
+  void LoadInputHistograms(fhicl::ParameterSet const &ps);
 
   typedef Int_t bin_it_t;
 
@@ -112,12 +112,12 @@ void TemplateResponseCalculatorBase<
 
 template <size_t NDims, bool Continuous, size_t PolyResponseOrder>
 void TemplateResponseCalculatorBase<NDims, Continuous, PolyResponseOrder>::
-    LoadInputHistograms(fhiclsimple::ParameterSet const &ps) {
+    LoadInputHistograms(fhicl::ParameterSet const &ps) {
 
   std::string const &default_root_file = ps.get<std::string>("input_file", "");
 
-  for (fhiclsimple::ParameterSet const &val_config :
-       ps.get<std::vector<fhiclsimple::ParameterSet>>("inputs")) {
+  for (fhicl::ParameterSet const &val_config :
+       ps.get<std::vector<fhicl::ParameterSet>>("inputs")) {
     double pval = val_config.get<double>("value");
     std::string input_file =
         val_config.get<std::string>("input_file", default_root_file);

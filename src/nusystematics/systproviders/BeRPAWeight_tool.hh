@@ -11,12 +11,12 @@
 class BeRPAWeight : public nusyst::IGENIESystProvider_tool {
 
 public:
-  explicit BeRPAWeight(fhiclsimple::ParameterSet const &);
+  explicit BeRPAWeight(fhicl::ParameterSet const &);
 
-  bool SetupResponseCalculator(fhiclsimple::ParameterSet const &);
-  fhiclsimple::ParameterSet GetExtraToolOptions() { return tool_options; }
+  bool SetupResponseCalculator(fhicl::ParameterSet const &);
+  fhicl::ParameterSet GetExtraToolOptions() { return tool_options; }
 
-  systtools::SystMetaData BuildSystMetaData(fhiclsimple::ParameterSet const &,
+  systtools::SystMetaData BuildSystMetaData(fhicl::ParameterSet const &,
                                             systtools::paramId_t);
 
   systtools::event_unit_response_t GetEventResponse(genie::EventRecord const &);
@@ -26,7 +26,7 @@ public:
   ~BeRPAWeight();
 
 private:
-  fhiclsimple::ParameterSet tool_options;
+  fhicl::ParameterSet tool_options;
 
   bool ApplyCV;
 

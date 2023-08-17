@@ -39,12 +39,12 @@ private:
   std::pair<double, double> LimitWeights;
 
 public:
-  explicit FSILikeEAvailSmearing(fhiclsimple::ParameterSet const &);
+  explicit FSILikeEAvailSmearing(fhicl::ParameterSet const &);
 
-  bool SetupResponseCalculator(fhiclsimple::ParameterSet const &);
-  fhiclsimple::ParameterSet GetExtraToolOptions() { return tool_options; }
+  bool SetupResponseCalculator(fhicl::ParameterSet const &);
+  fhicl::ParameterSet GetExtraToolOptions() { return tool_options; }
 
-  systtools::SystMetaData BuildSystMetaData(fhiclsimple::ParameterSet const &,
+  systtools::SystMetaData BuildSystMetaData(fhicl::ParameterSet const &,
                                             systtools::paramId_t);
 
   systtools::event_unit_response_t GetEventResponse(genie::EventRecord const &);
@@ -54,5 +54,5 @@ public:
   ~FSILikeEAvailSmearing();
 
 private:
-  fhiclsimple::ParameterSet tool_options;
+  fhicl::ParameterSet tool_options;
 };

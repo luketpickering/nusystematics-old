@@ -24,6 +24,7 @@ LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules)
 include(CPM)
 
 find_package(ROOT 6.10 REQUIRED)
+find_package(fhiclcpp 4.17 REQUIRED)
 
 CPMFindPackage(
     NAME systematicstools
@@ -51,7 +52,7 @@ endif()
 ###### Compiler set up
 add_library(nusystematics_dependencies INTERFACE)
 target_link_libraries(nusystematics_dependencies INTERFACE 
-  fhiclcppsimple::includes)
+  fhiclcpp::fhiclcpp)
 target_include_directories(nusystematics_dependencies INTERFACE 
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
   $<INSTALL_INTERFACE:include> )
