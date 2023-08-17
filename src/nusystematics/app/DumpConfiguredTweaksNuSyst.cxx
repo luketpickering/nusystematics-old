@@ -4,7 +4,7 @@
 
 #include "systematicstools/utility/ParameterAndProviderConfigurationUtility.hh"
 
-#include "fhiclcppsimple/string_parsers/md5.hxx"
+#include "systematicstools/utility/md5.hh"
 #include "systematicstools/utility/printers.hh"
 #include "systematicstools/utility/string_parsers.hh"
 
@@ -13,7 +13,7 @@
 
 #include "nusystematics/utility/response_helper.hh"
 
-#include "fhiclcppsimple/ParameterSet.h"
+#include "fhiclcpp/ParameterSet.h"
 
 #include "Framework/EventGen/EventRecord.h"
 #include "Framework/GHEP/GHepParticle.h"
@@ -276,10 +276,10 @@ void HandleOpts(int argc, char const *argv[]) {
 
 typedef IGENIESystProvider_tool SystProv;
 
-
-
-fhiclsimple::ParameterSet ReadParameterSet(char const *[]) {
-  return fhiclsimple::make_ParameterSet(cliopts::fclname);
+fhicl::ParameterSet ReadParameterSet(char const *[]) {
+  // TODO
+  std::unique_ptr<cet::filepath_maker> fm = std::make_unique<cet::filepath_maker>();
+  return fhicl::ParameterSet::make(cliopts::fclname, *fm);
 }
 
 int main(int argc, char const *argv[]) {

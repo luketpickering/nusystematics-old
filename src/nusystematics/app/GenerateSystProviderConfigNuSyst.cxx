@@ -10,7 +10,6 @@
 #include "nusystematics/utility/make_instance.hh"
 
 #include "fhiclcpp/ParameterSet.h"
-#include "fhiclcpp/make_ParameterSet.h"
 
 #include <fstream>
 #include <iomanip>
@@ -78,7 +77,11 @@ int main(int argc, char const *argv[]) {
 
   fhicl::ParameterSet in_ps = fhicl::ParameterSet::make(cliopts::fclname, std::make_unique<cet::filepath_lookup>(ev));
 */
-  fhicl::ParameterSet in_ps = fhicl::ParameterSet::make(cliopts::fclname);
+
+  // TODO
+  std::unique_ptr<cet::filepath_maker> fm = std::make_unique<cet::filepath_maker>();
+
+  fhicl::ParameterSet in_ps = fhicl::ParameterSet::make(cliopts::fclname, *fm);
 
   std::cout << "[GenerateSystProviderConfigNuSyst] input" << std::endl;
   std::cout << in_ps.to_indented_string() << std::endl;

@@ -70,7 +70,9 @@ public:
   void LoadConfiguration(std::string const &fhicl_config_filename) {
     config_file = fhicl_config_filename;
 
-    fhicl::ParameterSet ps = fhicl::ParameterSet::make(config_file);
+    // TODO
+    std::unique_ptr<cet::filepath_maker> fm = std::make_unique<cet::filepath_maker>();
+    fhicl::ParameterSet ps = fhicl::ParameterSet::make(config_file, *fm);
 
     LoadProvidersAndHeaders(ps.get<fhicl::ParameterSet>(
         "generated_systematic_provider_configuration"));
