@@ -1,5 +1,6 @@
 LIST(APPEND TARGETS_TO_BUILD 
 GenerateSystProviderConfigNuSyst
+DumpConfiguredTweaksNuSyst
 )
 
 foreach(targ ${TARGETS_TO_BUILD})
