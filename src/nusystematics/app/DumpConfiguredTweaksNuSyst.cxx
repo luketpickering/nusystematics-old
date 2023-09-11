@@ -228,6 +228,7 @@ std::string outputfile = "";
 std::string envvar = "FHICL_FILE_PATH";
 std::string fhicl_key = "generated_systematic_provider_configuration";
 size_t NMax = std::numeric_limits<size_t>::max();
+size_t NSkip = 0;
 #ifndef NO_ART
 int lookup_policy = 1;
 #endif
@@ -244,6 +245,7 @@ void SayUsage(char const *argv[]) {
                "\t-i <ghep.root>   : GENIE TChain descriptor to read events\n"
                "\t                   from. (n.b. quote wildcards).\n"
                "\t-N <NMax>        : Maximum number of events to process.\n"
+               "\t-s <NSkip>       : Number of events to skip.\n"
                "\t-o <out.root>    : File to write validation canvases to.\n"
             << std::endl;
 }
@@ -263,6 +265,8 @@ void HandleOpts(int argc, char const *argv[]) {
       cliopts::genie_input = argv[++opt];
     } else if (std::string(argv[opt]) == "-N") {
       cliopts::NMax = str2T<size_t>(argv[++opt]);
+    } else if (std::string(argv[opt]) == "-s") {
+      cliopts::NSkip = str2T<size_t>(argv[++opt]);
     } else if (std::string(argv[opt]) == "-o") {
       cliopts::outputfile = argv[++opt];
     } else {
@@ -312,12 +316,17 @@ int main(int argc, char const *argv[]) {
     return 4;
   }
 
+  if( cliopts::NSkip >= NEvs ){
+    printf("[ERROR]: NSkip is larger than NEvs; (NSkip, NEvs) = (%ld, %ld)\n", cliopts::NSkip, NEvs);
+    return 5;
+  }
+
   genie::NtpMCEventRecord *GenieNtpl = nullptr;
 
   if (gevs->SetBranchAddress("gmcrec", &GenieNtpl) != TTree::kMatch) {
     std::cout << "[ERROR]: Failed to set branch address on ghep tree."
               << std::endl;
-    return 5;
+    return 6;
   }
 
   TweakSummaryTree tst(cliopts::outputfile.c_str());
@@ -329,7 +338,7 @@ int main(int argc, char const *argv[]) {
   size_t NToRead = std::min(NEvs, cliopts::NMax);
   size_t NToShout = NToRead / 20;
   NToShout = NToShout ? NToShout : 1;
-  for (size_t ev_it = 0; ev_it < NToRead; ++ev_it) {
+  for (size_t ev_it = cliopts::NSkip; ev_it < NToRead; ++ev_it) {
     gevs->GetEntry(ev_it);
     genie::EventRecord const &GenieGHep = *GenieNtpl->event;
 
