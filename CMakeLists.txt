@@ -27,7 +27,7 @@ find_package(ROOT 6.10 REQUIRED)
 
 CPMFindPackage(
     NAME systematicstools
-    GIT_TAG merge/develop_artless
+    GIT_TAG develop
     GITHUB_REPOSITORY luketpickering/systematicstools
 )
 
