@@ -25,7 +25,7 @@ SystMetaData FSILikeEAvailSmearing::BuildSystMetaData(ParameterSet const &cfg,
   SystMetaData smd;
 
   systtools::SystParamHeader phdr;
-  if (ParseFHiCLSimpleToolConfigurationParameter(cfg, "FSILikeEAvailSmearing",
+  if (ParseFhiclToolConfigurationParameter(cfg, "FSILikeEAvailSmearing",
                                                  phdr, firstId)) {
     phdr.systParamId = firstId++;
     smd.push_back(phdr);

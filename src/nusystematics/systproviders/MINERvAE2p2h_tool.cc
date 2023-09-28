@@ -41,7 +41,7 @@ SystMetaData MINERvAE2p2h::BuildSystMetaData(fhicl::ParameterSet const &ps,
     for (std::string const &p : {"E2p2h_A", "E2p2h_B"}) {
       std::string pname = p + "_" + nu;
       SystParamHeader phdr;
-      if (ParseFHiCLSimpleToolConfigurationParameter(ps, pname, phdr,
+      if (ParseFhiclToolConfigurationParameter(ps, pname, phdr,
                                                      firstId)) {
         phdr.systParamId = firstId++;
         if (!ignore_parameter_dependence) {

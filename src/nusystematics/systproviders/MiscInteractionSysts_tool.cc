@@ -30,7 +30,7 @@ MiscInteractionSysts::BuildSystMetaData(fhicl::ParameterSet const &ps,
        {"C12ToAr40_2p2hScaling_nu", "C12ToAr40_2p2hScaling_nubar",
         "nuenuebar_xsec_ratio", "nuenumu_xsec_ratio", "SPPLowQ2Suppression"}) {
     systtools::SystParamHeader phdr;
-    if (ParseFHiCLSimpleToolConfigurationParameter(ps, pname, phdr, firstId)) {
+    if (ParseFhiclToolConfigurationParameter(ps, pname, phdr, firstId)) {
       phdr.systParamId = firstId++;
       smd.push_back(phdr);
     }

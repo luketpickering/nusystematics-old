@@ -26,11 +26,11 @@ ConfigureSetOfIndependentParameters(fhicl::ParameterSet const &cfg,
   SystMetaData MD;
   for (GSyst_t const &gdial : Dials) {
     std::string const &pname = GSyst::AsString(gdial);
-    if (!FHiCLSimpleToolConfigurationParameterExists(cfg, pname)) {
+    if (!FhiclToolConfigurationParameterExists(cfg, pname)) {
       continue;
     }
     systtools::SystParamHeader param;
-    ParseFHiCLSimpleToolConfigurationParameter(cfg, pname, param, firstParamId);
+    ParseFhiclToolConfigurationParameter(cfg, pname, param, firstParamId);
     param.systParamId = firstParamId++;
     MD.push_back(std::move(param));
   }
@@ -57,11 +57,11 @@ SystMetaData ConfigureSetOfDependentShapeableParameters(
   size_t NParams = 0;
   for (std::pair<GSyst_t, GSyst_t> const &gdial : Dials) {
     std::string const &pname = GSyst::AsString(gdial.first);
-    if (!FHiCLSimpleToolConfigurationParameterExists(cfg, pname)) {
+    if (!FhiclToolConfigurationParameterExists(cfg, pname)) {
       continue;
     }
     systtools::SystParamHeader param;
-    ParseFHiCLSimpleToolConfigurationParameter(cfg, pname, param, firstParamId);
+    ParseFhiclToolConfigurationParameter(cfg, pname, param, firstParamId);
     param.systParamId = firstParamId++;
     param.prettyName = GSyst::AsString(IsShape ? gdial.second : gdial.first);
     if (!ignore_parameter_dependence) {
@@ -118,11 +118,11 @@ SystMetaData ConfigureSetOfDependentParameters(
   size_t NParams = 0;
   for (GSyst_t const &gdial : Dials) {
     std::string const &pname = GSyst::AsString(gdial);
-    if (!FHiCLSimpleToolConfigurationParameterExists(cfg, pname)) {
+    if (!FhiclToolConfigurationParameterExists(cfg, pname)) {
       continue;
     }
     systtools::SystParamHeader param;
-    ParseFHiCLSimpleToolConfigurationParameter(cfg, pname, param, firstParamId);
+    ParseFhiclToolConfigurationParameter(cfg, pname, param, firstParamId);
     param.systParamId = firstParamId++;
     if (!ignore_parameter_dependence) {
       param.isResponselessParam = true;
@@ -165,24 +165,24 @@ SystMetaData ConfigureQEParameterHeaders(fhicl::ParameterSet const &cfg,
   tool_options.put("MaCCQEIsShapeOnly", MaCCQEIsShapeOnly);
 
   // Axial FFs
-  bool DipoleNormCCQEIsUsed = FHiCLSimpleToolConfigurationParameterExists(
+  bool DipoleNormCCQEIsUsed = FhiclToolConfigurationParameterExists(
       cfg, GSyst::AsString(kXSecTwkDial_NormCCQE));
   bool DipoleIsShapeOnly = MaCCQEIsShapeOnly || DipoleNormCCQEIsUsed;
-  bool DipoleMaCCQEIsUsed = FHiCLSimpleToolConfigurationParameterExists(
+  bool DipoleMaCCQEIsUsed = FhiclToolConfigurationParameterExists(
       cfg, GSyst::AsString(kXSecTwkDial_MaCCQE));
 
   bool IsDipoleReWeight =
       DipoleIsShapeOnly || DipoleNormCCQEIsUsed || DipoleMaCCQEIsUsed;
 
-  bool ZNormIsUsed = FHiCLSimpleToolConfigurationParameterExists(
+  bool ZNormIsUsed = FhiclToolConfigurationParameterExists(
       cfg, GSyst::AsString(kXSecTwkDial_ZNormCCQE));
-  bool ZExpA1IsUsed = FHiCLSimpleToolConfigurationParameterExists(
+  bool ZExpA1IsUsed = FhiclToolConfigurationParameterExists(
       cfg, GSyst::AsString(kXSecTwkDial_ZExpA1CCQE));
-  bool ZExpA2IsUsed = FHiCLSimpleToolConfigurationParameterExists(
+  bool ZExpA2IsUsed = FhiclToolConfigurationParameterExists(
       cfg, GSyst::AsString(kXSecTwkDial_ZExpA2CCQE));
-  bool ZExpA3IsUsed = FHiCLSimpleToolConfigurationParameterExists(
+  bool ZExpA3IsUsed = FhiclToolConfigurationParameterExists(
       cfg, GSyst::AsString(kXSecTwkDial_ZExpA3CCQE));
-  bool ZExpA4IsUsed = FHiCLSimpleToolConfigurationParameterExists(
+  bool ZExpA4IsUsed = FhiclToolConfigurationParameterExists(
       cfg, GSyst::AsString(kXSecTwkDial_ZExpA4CCQE));
 
   bool IsZExpReWeight = ZNormIsUsed || ZExpA1IsUsed || ZExpA2IsUsed ||
@@ -203,14 +203,14 @@ SystMetaData ConfigureQEParameterHeaders(fhicl::ParameterSet const &cfg,
   if (IsDipoleReWeight) {
     if (DipoleNormCCQEIsUsed) {
       systtools::SystParamHeader param;
-      ParseFHiCLSimpleToolConfigurationParameter(
+      ParseFhiclToolConfigurationParameter(
           cfg, GSyst::AsString(kXSecTwkDial_NormCCQE), param, firstParamId);
       param.systParamId = firstParamId++;
       QEmd.push_back(std::move(param));
     }
     if (DipoleMaCCQEIsUsed) {
       systtools::SystParamHeader param;
-      ParseFHiCLSimpleToolConfigurationParameter(
+      ParseFhiclToolConfigurationParameter(
           cfg, GSyst::AsString(kXSecTwkDial_MaCCQE), param, firstParamId);
       param.systParamId = firstParamId++;
       param.prettyName = GSyst::AsString(
@@ -222,7 +222,7 @@ SystMetaData ConfigureQEParameterHeaders(fhicl::ParameterSet const &cfg,
     // output its response via the a meta-parameter.
     if (ZNormIsUsed) {
       systtools::SystParamHeader param;
-      ParseFHiCLSimpleToolConfigurationParameter(
+      ParseFhiclToolConfigurationParameter(
           cfg, GSyst::AsString(kXSecTwkDial_ZNormCCQE), param, firstParamId);
       param.systParamId = firstParamId++;
       QEmd.push_back(std::move(param));
@@ -238,16 +238,48 @@ SystMetaData ConfigureQEParameterHeaders(fhicl::ParameterSet const &cfg,
 
   // These are all independent and based upon the channel that was generated
   SystMetaData VecFFCCQEmd = ConfigureSetOfIndependentParameters(
-      cfg, firstParamId, {kXSecTwkDial_VecFFCCQEshape});
+      cfg, firstParamId,
+      {kXSecTwkDial_VecFFCCQEshape});
+  firstParamId += VecFFCCQEmd.size();
   ExtendSystMetaData(QEmd, std::move(VecFFCCQEmd));
+
+  SystMetaData RPA_CCQEmd = ConfigureSetOfIndependentParameters(
+      cfg, firstParamId,
+      {kXSecTwkDial_RPA_CCQE});
+  firstParamId += RPA_CCQEmd.size();
+  ExtendSystMetaData(QEmd, std::move(RPA_CCQEmd));
+
+  SystMetaData CoulombCCQEmd = ConfigureSetOfIndependentParameters(
+      cfg, firstParamId,
+      {kXSecTwkDial_CoulombCCQE});
+  firstParamId += CoulombCCQEmd.size();
+  ExtendSystMetaData(QEmd, std::move(CoulombCCQEmd));
 
   bool AxFFCCQEDipoleToZExp =
       cfg.get<bool>("AxFFCCQEDipoleToZExp", false) || IsZExpReWeight;
 
-  tool_options.put<bool>("AxFFCCQEDipoleToZExp", AxFFCCQEDipoleToZExp);
+  tool_options.put<bool>("AxFFCCQEDipoleToZExp",AxFFCCQEDipoleToZExp);
+
 
   return QEmd;
-} // namespace nusyst
+}
+
+SystMetaData ConfigureMECParameterHeaders(fhicl::ParameterSet const &cfg,
+                                          paramId_t firstParamId,
+                                          fhicl::ParameterSet &tool_options) {
+
+  return ConfigureSetOfIndependentParameters(
+      cfg, firstParamId,
+      {kXSecTwkDial_NormCCMEC,
+       kXSecTwkDial_NormNCMEC,
+       kXSecTwkDial_NormEMMEC,
+       kXSecTwkDial_DecayAngMEC,
+       kXSecTwkDial_FracPN_CCMEC,
+       kXSecTwkDial_FracDelta_CCMEC,
+       kXSecTwkDial_XSecShape_CCMEC}
+  );
+
+}
 
 SystMetaData ConfigureNCELParameterHeaders(fhicl::ParameterSet const &cfg,
                                            paramId_t firstParamId,
@@ -266,7 +298,7 @@ SystMetaData ConfigureRESParameterHeaders(fhicl::ParameterSet const &cfg,
   bool CCRESIsShapeOnly = cfg.get<bool>("CCRESIsShapeOnly", false);
   tool_options.put("CCRESIsShapeOnly", CCRESIsShapeOnly);
 
-  bool NormCCRESIsUsed = FHiCLSimpleToolConfigurationParameterExists(
+  bool NormCCRESIsUsed = FhiclToolConfigurationParameterExists(
       cfg, GSyst::AsString(kXSecTwkDial_NormCCRES));
 
   if (NormCCRESIsUsed && !CCRESIsShapeOnly) {
@@ -277,14 +309,14 @@ SystMetaData ConfigureRESParameterHeaders(fhicl::ParameterSet const &cfg,
 
   if (NormCCRESIsUsed) {
     systtools::SystParamHeader param;
-    ParseFHiCLSimpleToolConfigurationParameter(
+    ParseFhiclToolConfigurationParameter(
         cfg, GSyst::AsString(kXSecTwkDial_NormCCRES), param, firstParamId);
     param.systParamId = firstParamId++;
     RESmd.push_back(std::move(param));
   }
 
   SystMetaData CCRESmd = ConfigureSetOfDependentShapeableParameters(
-      cfg, firstParamId, tool_options, "CCResVariationResponse",
+      cfg, firstParamId, tool_options, "CCRESVariationResponse",
       {{kXSecTwkDial_MaCCRES, kXSecTwkDial_MaCCRESshape},
        {kXSecTwkDial_MvCCRES, kXSecTwkDial_MvCCRESshape}},
       CCRESIsShapeOnly);
@@ -295,7 +327,7 @@ SystMetaData ConfigureRESParameterHeaders(fhicl::ParameterSet const &cfg,
   bool NCRESIsShapeOnly = cfg.get<bool>("NCRESIsShapeOnly", false);
   tool_options.put("NCRESIsShapeOnly", NCRESIsShapeOnly);
 
-  bool NormNCRESIsUsed = FHiCLSimpleToolConfigurationParameterExists(
+  bool NormNCRESIsUsed = FhiclToolConfigurationParameterExists(
       cfg, GSyst::AsString(kXSecTwkDial_NormNCRES));
 
   if (NormNCRESIsUsed && !NCRESIsShapeOnly) {
@@ -306,14 +338,14 @@ SystMetaData ConfigureRESParameterHeaders(fhicl::ParameterSet const &cfg,
 
   if (NormNCRESIsUsed) {
     systtools::SystParamHeader param;
-    ParseFHiCLSimpleToolConfigurationParameter(
+    ParseFhiclToolConfigurationParameter(
         cfg, GSyst::AsString(kXSecTwkDial_NormNCRES), param, firstParamId);
     param.systParamId = firstParamId++;
     RESmd.push_back(std::move(param));
   }
 
   SystMetaData NCRESmd = ConfigureSetOfDependentShapeableParameters(
-      cfg, firstParamId, tool_options, "NCResVariationResponse",
+      cfg, firstParamId, tool_options, "NCRESVariationResponse",
       {{kXSecTwkDial_MaNCRES, kXSecTwkDial_MaNCRESshape},
        {kXSecTwkDial_MvNCRES, kXSecTwkDial_MvNCRESshape}},
       NCRESIsShapeOnly);
@@ -332,7 +364,8 @@ SystMetaData ConfigureRESParameterHeaders(fhicl::ParameterSet const &cfg,
        kXSecTwkDial_RvbarnNC2pi,
 
        kRDcyTwkDial_BR1gamma, kRDcyTwkDial_BR1eta,
-       kRDcyTwkDial_Theta_Delta2Npi});
+       kRDcyTwkDial_Theta_Delta2Npi,
+       kRDcyTwkDial_Theta_Delta2NRad});
   ExtendSystMetaData(RESmd, std::move(RESOther));
 
   return RESmd;
@@ -343,7 +376,7 @@ SystMetaData ConfigureCOHParameterHeaders(fhicl::ParameterSet const &cfg,
                                           fhicl::ParameterSet &tool_options) {
   return ConfigureSetOfDependentParameters(
       cfg, firstParamId, tool_options, "COHVariationResponse",
-      {kXSecTwkDial_MaCOHpi, kXSecTwkDial_R0COHpi});
+      {kXSecTwkDial_MaCOHpi, kXSecTwkDial_R0COHpi, kXSecTwkDial_NormCCCOHpi, kXSecTwkDial_NormNCCOHpi});
 }
 
 SystMetaData ConfigureDISParameterHeaders(fhicl::ParameterSet const &cfg,

@@ -83,6 +83,20 @@ public:
   virtual systtools::event_unit_response_t
   GetEventResponse(genie::EventRecord const &) = 0;
 
+  /// Calculates configured response for a given vector of GHep record
+  std::unique_ptr<systtools::EventResponse>
+  GetEventResponses(std::vector<std::unique_ptr<genie::EventRecord>> const &gheps){
+
+    std::unique_ptr<systtools::EventResponse> er =
+        std::make_unique<systtools::EventResponse>();
+
+    for (size_t eu_it = 0; eu_it < gheps.size(); ++eu_it) {
+      er->push_back(GetEventResponse(*gheps[eu_it]));
+    }
+    return er;
+
+  };
+
   systtools::event_unit_response_w_cv_t
   GetEventVariationAndCVResponse(genie::EventRecord const &GenieGHep) {
     systtools::event_unit_response_w_cv_t responseandCV;
@@ -117,6 +131,10 @@ public:
           break;
         }
       }
+
+
+/*
+//TODO
       // if we didn't find it, the CVResp stays as 1/0 depending on whether it
       // is a weight or not.
       for (size_t idx = 0; idx < NVars; ++idx) {
@@ -126,6 +144,7 @@ public:
           pr.responses[idx] -= CVResp;
         }
       }
+*/
 
       responseandCV.push_back({pr.pid, CVResp, pr.responses});
     } // end for parameter response

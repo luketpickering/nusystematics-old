@@ -19,7 +19,7 @@ SystMetaData EbLepMomShift::BuildSystMetaData(fhicl::ParameterSet const &ps,
   SystMetaData smd;
 
   SystParamHeader phdr;
-  if (ParseFHiCLSimpleToolConfigurationParameter(ps, "EbFSLepMomShift", phdr,
+  if (ParseFhiclToolConfigurationParameter(ps, "EbFSLepMomShift", phdr,
                                                  firstId)) {
     phdr.systParamId = firstId++;
     phdr.isWeightSystematicVariation = false;

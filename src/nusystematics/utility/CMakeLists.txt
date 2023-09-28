@@ -6,6 +6,8 @@ SET(UTLY_HDRFILES
   enumclass2int.hh
   exceptions.hh
   simbUtility.hh
+  make_instance.hh
+  response_helper.hh
 )
 
 

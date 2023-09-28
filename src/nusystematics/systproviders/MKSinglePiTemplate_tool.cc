@@ -33,7 +33,7 @@ SystMetaData MKSinglePiTemplate::BuildSystMetaData(ParameterSet const &cfg,
   SystMetaData smd;
 
   systtools::SystParamHeader phdr;
-  if (ParseFHiCLSimpleToolConfigurationParameter(cfg, "MKSPP_ReWeight", phdr,
+  if (ParseFhiclToolConfigurationParameter(cfg, "MKSPP_ReWeight", phdr,
                                                  firstId)) {
     phdr.systParamId = firstId++;
     smd.push_back(phdr);

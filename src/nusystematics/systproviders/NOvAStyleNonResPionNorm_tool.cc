@@ -23,7 +23,7 @@ NOvAStyleNonResPionNorm::BuildSystMetaData(fhicl::ParameterSet const &ps,
               BuildNRPiChannel(IsNeutrino, IsCC, TargetNucleon, NPi);
 
           systtools::SystParamHeader ch_param;
-          if (ParseFHiCLSimpleToolConfigurationParameter(
+          if (ParseFhiclToolConfigurationParameter(
                   ps, GetNRPiChannelName(chan), ch_param, firstId)) {
             ch_param.systParamId = firstId++;
             smd.push_back(ch_param);

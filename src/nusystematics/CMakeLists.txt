@@ -2,6 +2,7 @@ add_subdirectory(interface)
 add_subdirectory(responsecalculators)
 add_subdirectory(systproviders)
 add_subdirectory(utility)
+add_subdirectory(app)
 
 add_library(nusystematics_all INTERFACE)
 target_link_libraries(nusystematics_all INTERFACE nusyst::systproviders)
