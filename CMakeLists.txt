@@ -24,12 +24,11 @@ LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules)
 include(CPM)
 
 find_package(ROOT 6.10 REQUIRED)
-find_package(fhiclcpp 4.17 REQUIRED)
 
 CPMFindPackage(
     NAME systematicstools
     GIT_TAG develop
-    GITHUB_REPOSITORY jedori0228/systematicstools
+    GITHUB_REPOSITORY luketpickering/systematicstools
 )
 
 if(DEFINED ENV{NuHepMCModules_ROOT})

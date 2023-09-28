@@ -6,7 +6,6 @@
 #include "systematicstools/utility/string_parsers.hh"
 #include "systematicstools/utility/md5.hh"
 
-#include "nusystematics/utility/response_helper.hh"
 #include "nusystematics/utility/make_instance.hh"
 
 #include "fhiclcpp/ParameterSet.h"
@@ -140,7 +139,7 @@ int main(int argc, char const *argv[]) {
 
   std::cout << (cliopts::outputfile.size() ? "Wrote" : "Built")
             << " systematic provider configuration with md5: "
-            << std::quoted(systtools::md5(out_ps.to_compact_string())) << std::flush;
+            << std::quoted(md5(out_ps.to_compact_string())) << std::flush;
   if (cliopts::outputfile.size()) {
     std::cout << " to " << std::quoted(cliopts::outputfile) << std::flush;
   }
