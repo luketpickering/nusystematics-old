@@ -23,8 +23,10 @@ public:
                                             systtools::paramId_t);
 
   //'Second' configuration step: parameter headers
-  // - takes the FHiCL version of the SystMetaData produced by BuildSystMetaData
+  // - Reads the preconstructed SystMetaData produced by BuildSystMetaData
   //   to configure an instance of this class to calculate weights
+  // - Recieves a copy of the tool_options instance constructed by 
+  //   BuildSystMetaData as an argument
   bool SetupResponseCalculator(fhicl::ParameterSet const &);
 
   // Used to pass arbitrary FHiCL options from the tool configuration to the
